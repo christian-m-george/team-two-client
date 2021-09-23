@@ -1,0 +1,24 @@
+.greeting {
+    font-size: 100px
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 5px 5px 5px 0px;
+}
+
+.label-wrapper {
+    padding: 10px;
+}
+
+.button-wrapper {
+    padding: 10px;
+}
+
