@@ -5,40 +5,80 @@ import {Link} from 'react-router-dom';
 export default function Register(props) {
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
-const [fname, setFName] = useState("");
-const [lname, setLName] = useState("");
+const [fName, setFName] = useState("");
+const [lName, setLName] = useState("");
+
+const userData = {
+    firstName: fName, 
+    lastName: lName,
+    email: email, 
+    password: password
+}
+
+const submitUserData = (userData) => {
+    console.log('clicked me!!!')
+    // const url = 'http://localhost/test.htm';
+    // const options = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json;charset=UTF-8'
+    //   },
+    //   body: JSON.stringify(
+    //     userData
+    //   )
+    // };
+
+    console.log(userData)
+    
+    // fetch(url, options)
+    //   .then(response => {
+    //     console.log(response.status);
+    //   });
+}
 
     return <div>
-        <h1 className='welcome'> welcome, friend</h1>
+
+        <div className='header-wrapper wrapper'>
+            <h1 className='welcome'> welcome, friend</h1>
+        </div>
 
         <div className='register-form'>
 
             <div className='fname-input-wrapper input-wrapper'>
-            <div className='label-wrapper'><label for='first name'>first name</label></div>
+                <div className='label-wrapper wrapper'>
+                    <label htmlFor='first name'>first name</label>
+                </div>
                 <input type='text' id="fname" name="fname" onChange={event => setFName(event.target.value)}></input>
             </div>
 
-            <div className='lname-input-wrapper input-wrapper'>
-            <div className='label-wrapper'><label for='last name'>last name</label></div>
+            <div className='lname-input-wrapper input-wrapper wrapper'>
+                <div className='label-wrapper wrapper'>
+                    <label htmlFor='last name'>last name</label>
+                </div>
                 <input type='text' id="lname" name="lname" onChange={event => setLName(event.target.value)}></input>
             </div>
 
-            <div className='email-input-wrapper input-wrapper'>
-            <div className='label-wrapper'><label for='email'>email</label></div>
+            <div className='email-input-wrapper input-wrapper wrapper'>
+                <div className='label-wrapper wrapper'>
+                    <label htmlFor='email'>email</label>
+                </div>
                 <input type='text' id="email" name="email" onChange={event => setEmail(event.target.value)}></input>
             </div>
 
-            <div className='password-input-wrapper input-wrapper' onChange={event => setPassword(event.target.value)}>
-            <div className='label-wrapper'><label for='password'>password</label></div>
+            <div className='password-input-wrapper input-wrapper wrapper' onChange={event => setPassword(event.target.value)}>
+                <div className='label-wrapper wrapper'>
+                    <label htmlFor='password'>password</label>
+                </div>
                 <input type='text' id="password" name="password"></input>
             </div>
 
-            <div className='button-wrapper'>
-                <button>Login</button>
+            <div className='button-wrapper wrapper'>
+                <button onClick={() => submitUserData(userData)}>Login</button>
             </div>
 
-            <div>
-                    <Link to='/login'>Login Here</Link>
+            <div className='login-link-wrapper wrapper'>
+                <Link to='/login'>Login Here</Link>
             </div>
         </div>
     </div>
