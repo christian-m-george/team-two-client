@@ -1,5 +1,11 @@
 .greeting {
-    font-size: 100px
+    text-align: center;
+    font-size: 100px;
+}
+
+.wrapper {
+    text-align: center;
+    padding: 10px;
 }
 
 .login-form {
@@ -13,12 +19,3 @@
     justify-content: center;
     padding: 5px 5px 5px 0px;
 }
-
-.label-wrapper {
-    padding: 10px;
-}
-
-.button-wrapper {
-    padding: 10px;
-}
-

@@ -17,24 +17,24 @@ const userData = {
 
 const submitUserData = (userData) => {
     console.log('clicked me!!!')
-    // const url = 'http://localhost/test.htm';
-    // const options = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json;charset=UTF-8'
-    //   },
-    //   body: JSON.stringify(
-    //     userData
-    //   )
-    // };
+    const url = 'http://localhost:8000/user';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+      body: JSON.stringify(
+        userData
+      )
+    };
 
     console.log(userData)
     
-    // fetch(url, options)
-    //   .then(response => {
-    //     console.log(response.status);
-    //   });
+    fetch(url, options)
+      .then(response => {
+        console.log(response.status);
+      });
 }
 
     return <div>
@@ -70,7 +70,7 @@ const submitUserData = (userData) => {
                 <div className='label-wrapper wrapper'>
                     <label htmlFor='password'>password</label>
                 </div>
-                <input type='text' id="password" name="password"></input>
+                <input type='password' id="password" name="password"></input>
             </div>
 
             <div className='button-wrapper wrapper'>

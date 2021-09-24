@@ -43,13 +43,13 @@ export default function Login() {
         <div className='login-form'>
 
             <div className='email-input-wrapper input-wrapper wrapper'>
-                <div className='label-wrapper'><label htmlFor='email'>email</label></div>
+                <div className='label-wrapper wrapper'><label htmlFor='email'>email</label></div>
                 <input type='text' id="email" name="email" onChange={event => setEmail(event.target.value)}></input>
             </div>
 
             <div className='password-input-wrapper input-wrapper wrapper'>
-                <div className='label-wrapper'><label htmlFor='password'>password</label></div>
-                <input type='text' id="password" name="password" onChange={event => setPassword(event.target.value)}></input>
+                <div className='label-wrapper wrapper'><label htmlFor='password'>password</label></div>
+                <input type='password' id="password" name="password" onChange={event => setPassword(event.target.value)}></input>
             </div>
 
             <div className='button-wrapper wrapper'>
