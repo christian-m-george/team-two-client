@@ -9,7 +9,7 @@ const validateEmail = (email) => {
 }
 
 const validatePassword = (password) => {
-    const re = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/;
+    const re = /(?=.*[a-z])(?=.*\d)[0-9A-Za-z]{8,20}/;
     // const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
     return re.test(password.toLowerCase());
 }
