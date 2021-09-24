@@ -1,6 +1,7 @@
 import  React, { useState } from "react";
 import './Register.css';
 import {Link} from 'react-router-dom';
+import validate from "./Validate";
 
 export default function Register(props) {
 const [email, setEmail] = useState("");
@@ -17,6 +18,12 @@ const userData = {
 
 const submitUserData = (userData) => {
     console.log('clicked me!!!')
+
+    console.log(validate.name(userData.firstName));
+    console.log(validate.name(userData.lastName));
+    console.log(validate.email(userData.email));
+    console.log(validate.password(userData.password))
+
     const url = 'http://localhost:8000/user';
     const options = {
       method: 'POST',
