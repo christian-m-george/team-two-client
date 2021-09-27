@@ -1,6 +1,7 @@
 import  React, { useState } from "react";
 import './Login.css';
 import { Link } from "react-router-dom";
+import validate from "../Utils/Validate.js";
 
 
 export default function Login() {
@@ -11,10 +12,17 @@ export default function Login() {
         email: email,
         password: password
     }
-
+    
+    const validateUserInputs = (inputs) => {
+        return validate.email(inputs.email) && validate.password(inputs.password)
+    }
+    
+    // User data for login needs to be maxed against existing database user information, which does not currently exist
     const submitUserData = (userData) => {
-        console.log('clicked me!!!')
-        // const url = 'http://localhost/test.htm';
+        // const url = 'http://localhost:8000/auth';
+    
+        console.log(validateUserInputs(userData));
+    
         // const options = {
         //   method: 'POST',
         //   headers: {

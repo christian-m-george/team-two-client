@@ -1,21 +1,18 @@
 import React from 'react';
+import Navigation from '../Navigation/Navigation';
 import { Link } from 'react-router-dom';
 
-export default Home;function Home() {
+
+export default function Home() {
     return <div className='home'>
         <div className='wrapper'>
-        YOOO
-        </div>
-
-    <div className='link-wrapper wrapper'>
-        <Link to='/login'>Login</Link>
-        <Link to='/register'>Register</Link>
-    </div>
-        <div className='create-survey-wrapper wrapper'>
-            create survey
+            <Navigation></Navigation>
         </div>
         <div className='create-survey-wrapper wrapper'>
-            take survey
+            <Link to='/survey-builder'>Create Survey</Link>
+        </div>
+        <div className='create-survey-wrapper wrapper'>
+            <Link to='/my-surveys'>My Surveys</Link>
         </div>
     </div>
 }

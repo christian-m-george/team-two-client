@@ -1,7 +1,7 @@
 import  React, { useState } from "react";
 import './Register.css';
 import {Link} from 'react-router-dom';
-import validate from "./Validate";
+import validate from "../Utils/Validate.js";
 
 export default function Register(props) {
 const [email, setEmail] = useState("");
@@ -16,32 +16,35 @@ const userData = {
     password: password
 }
 
+const validateUserInputs = (inputs) => {
+    return validate.name(inputs.firstName) && 
+    validate.name(inputs.lastName) &&
+    validate.email(inputs.email) &&
+    validate.password(inputs.password)
+}
+
 const submitUserData = (userData) => {
-    console.log('clicked me!!!')
-
-    console.log(validate.name(userData.firstName));
-    console.log(validate.name(userData.lastName));
-    console.log(validate.email(userData.email));
-    console.log(validate.password(userData.password))
-
     const url = 'http://localhost:8000/user';
-    const options = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-      body: JSON.stringify(
-        userData
-      )
-    };
 
-    console.log(userData)
+    console.log(validateUserInputs(userData));
+
+    // const options = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json;charset=UTF-8'
+    //   },
+    //   body: JSON.stringify(
+    //     userData
+    //   )
+    // };
+
+    // console.log(userData)
     
-    fetch(url, options)
-      .then(response => {
-        console.log(response.status);
-      });
+    // fetch(url, options)
+    //   .then(response => {
+    //     console.log(response.status);
+    //   });
 }
 
     return <div>
