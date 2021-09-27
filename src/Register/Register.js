@@ -28,23 +28,23 @@ const submitUserData = (userData) => {
 
     console.log(validateUserInputs(userData));
 
-    // const options = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json;charset=UTF-8'
-    //   },
-    //   body: JSON.stringify(
-    //     userData
-    //   )
-    // };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+      body: JSON.stringify(
+        userData
+      )
+    };
 
-    // console.log(userData)
+    console.log(userData)
     
-    // fetch(url, options)
-    //   .then(response => {
-    //     console.log(response.status);
-    //   });
+    fetch(url, options)
+      .then(response => {
+        console.log(response.status);
+      });
 }
 
     return <div>

@@ -9,7 +9,7 @@ export default function Home() {
             <Navigation></Navigation>
         </div>
         <div className='create-survey-wrapper wrapper'>
-            <Link to='/survey-builder'>Create Survey</Link>
+            <Link to='/create-survey'>Create Survey</Link>
         </div>
         <div className='create-survey-wrapper wrapper'>
             <Link to='/my-surveys'>My Surveys</Link>

@@ -6,6 +6,7 @@ import CreateSurvey from './CreateSurvey/CreateSurvey.js';
 import CopySurvey from './CopySurvey/CopySurvey.js';
 import ImportSurvey from './ImportSurvey/ImportSurvey.js';
 import SurveyTemplates from './SurveyTemplates/SurveyTemplates.js';
+import AccountSettings from './AccountSettings/AccountSettings.js';
 import {
   Switch,
   Route
@@ -23,6 +24,7 @@ function App() {
           <Route path='/copy-survey' component={CopySurvey}></Route>
           <Route path='/import-survey' component={ImportSurvey}></Route>
           <Route path='/survey-templates' component={SurveyTemplates}></Route>
+          <Route path='/account-settings' component={AccountSettings}></Route>
 
         </Switch>
     </div>
