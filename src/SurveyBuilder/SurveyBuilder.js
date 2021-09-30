@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+// import React, { useState } from 'react';
 import Navigation from '../Navigation/Navigation.js'
 import './SurveyBuilder.css'
 
 export default function SurveyBuilder() {
-    const [surveyName, setSurveyName] = useState();
-    const [surveyCategory, setSurveyCategory] = useState();
-    const [surveyStyle, setSurveyStyle] = useState(false);
-    const [surveyRandom, setSurveyRandom] = useState(false);
+    // const [surveyName, setSurveyName] = useState();
+    // const [surveyCategory, setSurveyCategory] = useState();
+    // const [surveyStyle, setSurveyStyle] = useState(false);
+    // const [surveyRandom, setSurveyRandom] = useState(false);
 
     const submitSurveyWizardData = (data) => {
         console.log(data.target[0].value);

@@ -18,28 +18,31 @@ export default function Login() {
     }
     
     // User data for login needs to be maxed against existing database user information, which does not currently exist
-    const submitUserData = (userData) => {
-        // const url = 'http://localhost:8000/auth';
+    const submitUserData = async (userData) => {
+        const url = 'http://localhost:8000/auth';
     
         console.log(validateUserInputs(userData));
-    
-        // const options = {
-        //   method: 'POST',
-        //   headers: {
-        //     'Accept': 'application/json',
-        //     'Content-Type': 'application/json;charset=UTF-8'
-        //   },
-        //   body: JSON.stringify(
-        //     userData
-        //   )
-        // };
-    
-        console.log(userData)
-        
-        // fetch(url, options)
-        //   .then(response => {
-        //     console.log(response.status);
-        //   });
+        const options = {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
+            // 'Access-Control-Allow-Credentials': true
+          },
+          body: JSON.stringify(
+            userData
+          ),
+          credentials: 'include',
+          cors: true
+        };
+        // console.log(userData)
+        const response = await fetch(url, options)
+          .then(res => {
+            return res.json()
+          }).catch(
+              err => console.error(err)
+          );
+          console.log(response);
     }
 
     return <div>
