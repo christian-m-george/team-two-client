@@ -84,7 +84,7 @@ const submitUserData = (userData) => {
             </div>
 
             <div className='button-wrapper wrapper'>
-                <button onClick={() => submitUserData(userData)}>Login</button>
+                <button onClick={() => submitUserData(userData)}>Register</button>
             </div>
 
             <div className='login-link-wrapper wrapper'>
