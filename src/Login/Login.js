@@ -1,27 +1,22 @@
-import  React, { useState } from "react";
+import  React, { useState, useContext } from "react";
 import './Login.css';
-import { Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import validate from "../Utils/Validate.js";
-
+// import { UserContext } from "../Context/UserContext";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const userData = {
-        email: email,
-        password: password
-    }
+    const [emailIsValid, setEmailValid] = useState(false);
+    const [passwordIsValid, setPasswordValid] = useState(false)
     
-    const validateUserInputs = (inputs) => {
-        return validate.email(inputs.email) && validate.password(inputs.password)
-    }
+    // const validateUserInputs = () => {
+    //     return !validate.email(email) && !validate.password(password)
+    // }
     
     // User data for login needs to be maxed against existing database user information, which does not currently exist
-    const submitUserData = async (userData) => {
+    const submitUserData = async () => {
         const url = 'http://localhost:8000/auth';
-    
-        console.log(validateUserInputs(userData));
         const options = {
           method: 'POST',
           headers: {
@@ -30,7 +25,8 @@ export default function Login() {
             // 'Access-Control-Allow-Credentials': true
           },
           body: JSON.stringify(
-            userData
+            {email: email,
+            password: password}
           ),
           credentials: 'include',
           cors: true
@@ -38,7 +34,10 @@ export default function Login() {
         // console.log(userData)
         const response = await fetch(url, options)
           .then(res => {
-            return res.json()
+            // if(res.status === 200) {
+            //     window.location.replace("http://localhost:3000/create-survey")
+            // }
+            console.log(res.status);
           }).catch(
               err => console.error(err)
           );
@@ -64,7 +63,7 @@ export default function Login() {
             </div>
 
             <div className='button-wrapper wrapper'>
-                <button onClick={() => submitUserData(userData)}>Login</button>
+                <button disabled={!validate.email(email) || !validate.password(password)} onClick={() => submitUserData()}>Login</button>
             </div>
 
             <div className ='register-link-wrapper wrapper'>
@@ -73,4 +72,4 @@ export default function Login() {
 
         </div>
     </div>
-}
+};

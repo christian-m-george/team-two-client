@@ -16,17 +16,17 @@ const userData = {
     password: password
 }
 
-const validateUserInputs = (inputs) => {
-    return validate.name(inputs.firstName) && 
-    validate.name(inputs.lastName) &&
-    validate.email(inputs.email) &&
-    validate.password(inputs.password)
-}
+// const validateUserInputs = (inputs) => {
+//     return validate.name(inputs.firstName) && 
+//     validate.name(inputs.lastName) &&
+//     validate.email(inputs.email) &&
+//     validate.password(inputs.password)
+// }
 
 const submitUserData = (userData) => {
     const url = 'http://localhost:8000/user';
 
-    console.log(validateUserInputs(userData));
+    // console.log(validateUserInputs(userData));
 
     const options = {
       method: 'POST',
@@ -44,7 +44,7 @@ const submitUserData = (userData) => {
     fetch(url, options)
       .then(response => {
         console.log(response.status);
-      });
+      }).catch(err => console.log(err));
 }
 
     return <div>
@@ -84,7 +84,14 @@ const submitUserData = (userData) => {
             </div>
 
             <div className='button-wrapper wrapper'>
-                <button onClick={() => submitUserData(userData)}>Register</button>
+                <button 
+                disabled={
+                    !validate.email(email) || 
+                    !validate.password(password) || 
+                    !validate.name(fName) || 
+                    !validate.name(lName)
+                } 
+                    onClick={() => submitUserData(userData)}>Register</button>
             </div>
 
             <div className='login-link-wrapper wrapper'>
