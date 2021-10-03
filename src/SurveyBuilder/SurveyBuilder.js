@@ -115,7 +115,15 @@ export default function SurveyBuilder() {
                     </div>
                     <div className='question-number-wrapper'>How many questions will there be? Up to 100
                         <div>
-                            <input type='text' name='number-of-questions' />
+                            <input 
+                            type='text' 
+                            name='number-of-questions'
+                            onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                  event.preventDefault();
+                                }
+                              }}
+                        />
                         </div>
                     </div>
                     <div>
