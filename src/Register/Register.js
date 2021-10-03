@@ -1,32 +1,38 @@
 import  React, { useState } from "react";
-import './Register.css';
-import {Link} from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import validate from "../Utils/Validate.js";
+import './Register.css';
 
 export default function Register(props) {
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [fName, setFName] = useState("");
-const [lName, setLName] = useState("");
-
-const userData = {
-    firstName: fName, 
-    lastName: lName,
-    email: email, 
-    password: password
-}
-
-const validateUserInputs = (inputs) => {
-    return validate.name(inputs.firstName) && 
-    validate.name(inputs.lastName) &&
-    validate.email(inputs.email) &&
-    validate.password(inputs.password)
-}
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [fName, setFName] = useState("");
+    const [lName, setLName] = useState("");
+    const history = useHistory();
+    
+    const userData = {
+        firstName: fName, 
+        lastName: lName,
+        email: email, 
+        password: password
+    }
+    
+            
+    // redirect to create-survey
+    const reroute = () => {
+        history.push("/login");
+    }
+    // const validateUserInputs = (inputs) => {
+    //     return validate.name(inputs.firstName) && 
+    //     validate.name(inputs.lastName) &&
+    //     validate.email(inputs.email) &&
+    //     validate.password(inputs.password)
+    // }
 
 const submitUserData = (userData) => {
     const url = 'http://localhost:8000/user';
 
-    console.log(validateUserInputs(userData));
+    // console.log(validateUserInputs(userData));
 
     const options = {
       method: 'POST',
@@ -43,8 +49,10 @@ const submitUserData = (userData) => {
     
     fetch(url, options)
       .then(response => {
-        console.log(response.status);
-      });
+        if(response.status === 200) {
+            reroute();
+        };
+      }).catch(err => console.log(err));
 }
 
     return <div>
@@ -54,6 +62,10 @@ const submitUserData = (userData) => {
         </div>
 
         <div className='register-form'>
+            <form onSubmit={(event) => {
+                event.preventDefault();
+                submitUserData(userData);
+            }}>
 
             <div className='fname-input-wrapper input-wrapper'>
                 <div className='label-wrapper wrapper'>
@@ -84,12 +96,21 @@ const submitUserData = (userData) => {
             </div>
 
             <div className='button-wrapper wrapper'>
-                <button onClick={() => submitUserData(userData)}>Register</button>
+                <button 
+                disabled={
+                    !validate.email(email) || 
+                    !validate.password(password) || 
+                    !validate.name(fName) || 
+                    !validate.name(lName)
+                } 
+                    // onClick={() => submitUserData(userData)}
+                    >Register</button>
             </div>
 
             <div className='login-link-wrapper wrapper'>
                 <Link to='/login'>Login Here</Link>
             </div>
+            </form>
         </div>
     </div>
 }

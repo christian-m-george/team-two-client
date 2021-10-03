@@ -9,14 +9,45 @@ export default function SurveyBuilder() {
     // const [surveyStyle, setSurveyStyle] = useState(false);
     // const [surveyRandom, setSurveyRandom] = useState(false);
 
-    const submitSurveyWizardData = (data) => {
-        console.log(data.target[0].value);
-        console.log(data.target[1].value);
-        console.log(data.target[2].value);
-        console.log(data.target[3].value);
-        console.log(data.target[4].value);
-        console.log(data.target)
+    const submitSurveyWizardData = async (data) => {
+        const arrayOfTargets = data.target;
+        for(let i = 0 ; i < arrayOfTargets.length; i++) {
+            console.log(arrayOfTargets[i]);
+        }
+
+        const surveyFormData = {
+            title: data.target[0].value,
+            category: data.target[1].value,
+            singleQuestion: data.target[2].value === 'single questions' ? true : false,
+            isPrivate: data.target[3] === 'checked' ? true : false,
+            isRandom: data.target[5] === 'checked' ? true : false,
+            numQuestions: data.target[7].value
+        }
+
+        const url = 'http://localhost:8000/survey';
+    
+        const options = {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+          body: JSON.stringify(
+            {surveyFormData}
+          ),
+          credentials: 'include',
+          cors: true
+        };
+        console.log(JSON.stringify(surveyFormData) + " THIS IS SURVEY FORM DATA");
+        const response = await fetch(url, options)
+          .then(res => res.json()
+          ).catch(
+              err => console.error(err)
+          );
+          console.log(response);
     }
+        
+    
 
     return (
     <div>
@@ -55,21 +86,48 @@ export default function SurveyBuilder() {
                         <option value='all questions'>all questions are visible</option>
                     </select>
                     <div>
-                        Should questions be randomized?
+                        Is this survey private?
                         <div>
                             <label htmlFor='yes'>
                                     Yes
-                                <input type='radio' value='yes' name='yes' />
+                                <input type='radio' value='true' name='options1' />
                             </label>
                             <label htmlFor='no'>
                                     No
                                 <input type='radio'
-                                value='no' name='no' defaultChecked />
+                                value='false' name='options1' defaultChecked />
                             </label>
                         </div>
                     </div>
                     <div>
-                        <button className="btn btn-default" type="submit">
+                        Should questions be randomized?
+                        <div>
+                            <label htmlFor='yes'>
+                                    Yes
+                                <input type='radio' value='true' name='options2' />
+                            </label>
+                            <label htmlFor='no'>
+                                    No
+                                <input type='radio'
+                                value='false' name='options2' defaultChecked />
+                            </label>
+                        </div>
+                    </div>
+                    <div className='question-number-wrapper'>How many questions will there be? Up to 100
+                        <div>
+                            <input 
+                            type='text' 
+                            name='number-of-questions'
+                            onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                  event.preventDefault();
+                                }
+                              }}
+                        />
+                        </div>
+                    </div>
+                    <div>
+                        <button className="btn btn-default" type="submit" onClick={() => submitSurveyWizardData}>
                             Submit
                         </button>
                     </div>

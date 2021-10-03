@@ -10,7 +10,7 @@ const validateEmail = (email) => {
 }
 
 const validatePassword = (password) => {
-    const re = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[0-9A-Za-z]{8,20}/;
+    const re = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[0-9A-Za-z!@#$%^&*()-_=+]{8,20}/;
     return re.test(password);
 }
 

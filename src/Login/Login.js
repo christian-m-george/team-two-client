@@ -1,27 +1,21 @@
-import  React, { useState } from "react";
+import  React, { useState, useContext } from "react";
 import './Login.css';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import validate from "../Utils/Validate.js";
-
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
+        
+    // redirect to create-survey
+    const reroute = () => {
+        history.push("/create-survey");
+    }
 
-    const userData = {
-        email: email,
-        password: password
-    }
-    
-    const validateUserInputs = (inputs) => {
-        return validate.email(inputs.email) && validate.password(inputs.password)
-    }
-    
     // User data for login needs to be maxed against existing database user information, which does not currently exist
-    const submitUserData = async (userData) => {
+    const submitUserData = async () => {
         const url = 'http://localhost:8000/auth';
-    
-        console.log(validateUserInputs(userData));
         const options = {
           method: 'POST',
           headers: {
@@ -30,19 +24,29 @@ export default function Login() {
             // 'Access-Control-Allow-Credentials': true
           },
           body: JSON.stringify(
-            userData
+            {email: email,
+            password: password}
           ),
           credentials: 'include',
           cors: true
         };
-        // console.log(userData)
+
         const response = await fetch(url, options)
           .then(res => {
-            return res.json()
-          }).catch(
-              err => console.error(err)
+            if(res.status === 200) {
+                console.log("WE DID IT!!!!!!!!!!!!!!!")
+                res.json();
+                reroute();
+            }
+            console.log(res.status);
+          }).catch(err => {
+              console.error(err);
+              return false;
+          }
           );
-          console.log(response);
+
+        if (response) return true
+        else return false;
     }
 
     return <div>
@@ -52,7 +56,11 @@ export default function Login() {
         </div>
 
         <div className='login-form'>
-
+            <form onSubmit={(event) => {
+                event.preventDefault();
+                submitUserData();
+            }}
+            >
             <div className='email-input-wrapper input-wrapper wrapper'>
                 <div className='label-wrapper wrapper'><label htmlFor='email'>email</label></div>
                 <input type='text' id="email" name="email" onChange={event => setEmail(event.target.value)}></input>
@@ -64,13 +72,13 @@ export default function Login() {
             </div>
 
             <div className='button-wrapper wrapper'>
-                <button onClick={() => submitUserData(userData)}>Login</button>
+                <button disabled={!validate.email(email) || !validate.password(password)} >Login</button>
             </div>
 
             <div className ='register-link-wrapper wrapper'>
                 <Link to='/register'>Register Here</Link>
             </div>
-
+            </form>
         </div>
     </div>
-}
+};
