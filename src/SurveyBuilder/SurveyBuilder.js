@@ -63,7 +63,7 @@ export default function SurveyBuilder() {
                     <h5>survey category</h5>
                     <select id='survey-category'>
                         <option value='community feedback'>Community or volunteer feedback</option>
-                        <option value='customre feedback'>Customer feedback</option>
+                        <option value='customer feedback'>Customer feedback</option>
                         <option value='concept testing'>Concept product or ad testing</option>
                         <option value='brand tracking'>Brand tracking or awareness</option>
                         <option value='market research'>General market research</option>
