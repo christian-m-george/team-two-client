@@ -7,18 +7,14 @@ import CopySurvey from './CopySurvey/CopySurvey.js';
 import ImportSurvey from './ImportSurvey/ImportSurvey.js';
 import SurveyTemplates from './SurveyTemplates/SurveyTemplates.js';
 import AccountSettings from './AccountSettings/AccountSettings.js';
-import { RadioButton, RadioGroup } from './RadioButton/RadioButton.js';
-import {
-  Switch,
-  Route
-} from 'react-router-dom';
+import SingleQuestionBuilder from './SingleQuestion/SingleQuestionBuilder.js';
+import { Route } from 'react-router-dom';
 
 
 
 function App() {
   return (
     <div className='App'>
-        {/* <Switch> */}
           <Route exact path='/' component={Home}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/register' component={Register}></Route>
@@ -28,8 +24,7 @@ function App() {
           <Route path='/import-survey' component={ImportSurvey}></Route>
           <Route path='/survey-templates' component={SurveyTemplates}></Route>
           <Route path='/account-settings' component={AccountSettings}></Route>
-          <Route path='/radio-group' component={RadioButton}></Route>
-        {/* </Switch> */}
+          <Route path='/single-question-builder' component={SingleQuestionBuilder}></Route>
     </div>
   );
 }
