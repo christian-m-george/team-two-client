@@ -10,7 +10,7 @@ export default function Login() {
         
     // redirect to create-survey
     const reroute = () => {
-        history.push("/create-survey");
+        history.push("/");
     }
 
     // User data for login needs to be maxed against existing database user information, which does not currently exist
