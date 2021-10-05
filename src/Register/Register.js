@@ -22,18 +22,9 @@ export default function Register(props) {
     const reroute = () => {
         history.push("/login");
     }
-    // const validateUserInputs = (inputs) => {
-    //     return validate.name(inputs.firstName) && 
-    //     validate.name(inputs.lastName) &&
-    //     validate.email(inputs.email) &&
-    //     validate.password(inputs.password)
-    // }
 
 const submitUserData = (userData) => {
     const url = 'http://localhost:8000/user';
-
-    // console.log(validateUserInputs(userData));
-
     const options = {
       method: 'POST',
       headers: {
@@ -103,7 +94,6 @@ const submitUserData = (userData) => {
                     !validate.name(fName) || 
                     !validate.name(lName)
                 } 
-                    // onClick={() => submitUserData(userData)}
                     >Register</button>
             </div>
 
