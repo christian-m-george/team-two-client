@@ -7,7 +7,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
-        
+
     // redirect to create-survey
     const reroute = () => {
         history.push("/");
@@ -34,7 +34,6 @@ export default function Login() {
         const response = await fetch(url, options)
           .then(res => {
             if(res.status === 200) {
-                console.log("WE DID IT!!!!!!!!!!!!!!!")
                 res.json();
                 reroute();
             }
