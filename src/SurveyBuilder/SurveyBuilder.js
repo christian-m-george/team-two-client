@@ -1,29 +1,35 @@
-import React from 'react';
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 import Navigation from '../Navigation/Navigation.js'
 import './SurveyBuilder.css'
 
 export default function SurveyBuilder() {
-    // const [surveyName, setSurveyName] = useState();
-    // const [surveyCategory, setSurveyCategory] = useState();
-    // const [surveyStyle, setSurveyStyle] = useState(false);
-    // const [surveyRandom, setSurveyRandom] = useState(false);
+    const [isPrivate, setIsPrivate] = useState(true);
+    const [isRandom, setIsRandom] = useState(false);
+    const [numOfQuestions, setNumOfQuestions] = useState();
+    const [surveyName, setSurveyName] = useState('');
+    const [surveyCategory, setSurveyCategory] = useState('community feedback');
+    const [surveyStyle, setSurveyStyle] = useState(false);
 
-    const submitSurveyWizardData = async (data) => {
-        const arrayOfTargets = data.target;
-        for(let i = 0 ; i < arrayOfTargets.length; i++) {
-            console.log(arrayOfTargets[i]);
-        }
+    const toggleIsPrivate = () => {
+        if (isPrivate) setIsPrivate(false);
+        else setIsPrivate(true);
+    }
+    const toggleIsRandom = () => {
+        if (isRandom) setIsRandom(false);
+        else setIsRandom(true);
+    }
 
+    const submitSurveyWizardData = async () => {
         const surveyFormData = {
-            title: data.target[0].value,
-            category: data.target[1].value,
-            singleQuestion: data.target[2].value === 'single questions' ? true : false,
-            isPrivate: data.target[3] === 'checked' ? true : false,
-            isRandom: data.target[5] === 'checked' ? true : false,
-            numQuestions: data.target[7].value
+            title: surveyName,
+            category: surveyCategory,
+            singleQuestion: surveyStyle === 'single questions' ? true : false,
+            isPrivate: isPrivate,
+            isRandom: isRandom,
+            numQuestions: numOfQuestions
         }
-
+        
+        console.log(surveyFormData);
         const url = 'http://localhost:8000/survey';
     
         const options = {
@@ -46,9 +52,7 @@ export default function SurveyBuilder() {
           );
           console.log(response);
     }
-        
     
-
     return (
     <div>
         <Navigation></Navigation>
@@ -59,9 +63,9 @@ export default function SurveyBuilder() {
                     submitSurveyWizardData(event)
                 }}>
                     <label htmlFor='name-your-survey'>name your survey</label>
-                    <input type='text' />
+                    <input type='text' onChange={(event) => setSurveyName(event.target.value)}/>
                     <h5>survey category</h5>
-                    <select id='survey-category'>
+                    <select id='survey-category' onChange={(event) => setSurveyCategory(event.target.value)}>
                         <option value='community feedback'>Community or volunteer feedback</option>
                         <option value='customer feedback'>Customer feedback</option>
                         <option value='concept testing'>Concept product or ad testing</option>
@@ -81,7 +85,7 @@ export default function SurveyBuilder() {
                         <option value='other'>Other</option>
                     </select>
                     <h5>survey style</h5>
-                    <select id='survey-style'>
+                    <select id='survey-style' onChange={(event) => setSurveyStyle(event.target.value)}>
                         <option value='single questions'>one question at a time</option>
                         <option value='all questions'>all questions are visible</option>
                     </select>
@@ -90,12 +94,12 @@ export default function SurveyBuilder() {
                         <div>
                             <label htmlFor='yes'>
                                     Yes
-                                <input type='radio' value='true' name='options1' />
+                                <input type='radio' value='true' defaultChecked name='options1' onClick={() => toggleIsPrivate()}/>
                             </label>
                             <label htmlFor='no'>
                                     No
                                 <input type='radio'
-                                value='false' name='options1' defaultChecked />
+                                value='false' name='options1' onClick={() => toggleIsPrivate()}/>
                             </label>
                         </div>
                     </div>
@@ -104,30 +108,32 @@ export default function SurveyBuilder() {
                         <div>
                             <label htmlFor='yes'>
                                     Yes
-                                <input type='radio' value='true' name='options2' />
+                                <input type='radio' value='true' name='options2' onClick={() => toggleIsRandom()}/> 
                             </label>
                             <label htmlFor='no'>
                                     No
                                 <input type='radio'
-                                value='false' name='options2' defaultChecked />
+                                value='false' name='options2' defaultChecked onClick={() => toggleIsRandom()}/>
                             </label>
                         </div>
                     </div>
                     <div className='question-number-wrapper'>How many questions will there be? Up to 100
                         <div>
                             <input 
-                            type='text' 
-                            name='number-of-questions'
-                            onKeyPress={(event) => {
-                                if (!/[0-9]/.test(event.key)) {
-                                  event.preventDefault();
-                                }
-                              }}
-                        />
+                                type='text' 
+                                name='number-of-questions'
+                                onKeyPress={(event) => {
+                                    if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                    } else {
+                                    setNumOfQuestions(event.target.value);
+                                    }
+                                }}
+                             />
                         </div>
                     </div>
                     <div>
-                        <button className="btn btn-default" type="submit" onClick={() => submitSurveyWizardData}>
+                        <button className="btn btn-default" type="submit">
                             Submit
                         </button>
                     </div>
