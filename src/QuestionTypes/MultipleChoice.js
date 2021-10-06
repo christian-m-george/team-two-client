@@ -19,9 +19,16 @@ const MultipleChoice = () => {
                 style={{height: 30, margin:10, width: 100}} 
                 type='text' 
                 onChange={(event) => {
-                    const markers = answerFieldInputs.filter((a) => a.number != num);
-                    markers[num] = {number: num, value: event.target.value};
-                    console.log(JSON.stringify(markers) +  " WE ARE GOING TO SET THE ANSWER FIELD STATE TO THIS")
+                    const markers = answerFieldInputs.map((a) => {
+                        if (a.number !== num) {
+                            return a;
+                        } else {
+                            a.value = event.target.value;
+                            return a;
+                        }
+                    });
+                    // markers[num] = {number: num, value: event.target.value};
+                    // console.log(JSON.stringify(markers) +  " WE ARE GOING TO SET THE ANSWER FIELD STATE TO THIS")
                     setAnswerFieldInputs(markers);
                 }}
                 />
@@ -30,13 +37,13 @@ const MultipleChoice = () => {
                 if(answerField.length > 2) {
                     console.log(num + " IS THE NUMBER OF REMOVED FIELD INPUT");
 
-                    const newAnswerArray = answerField.filter((id) => id != num);
+                    const newAnswerArray = answerField.filter((key) => key !== num);
                     console.log(newAnswerArray + " THIS IS NEW ANSWER ARRAY");
                     setAnswerField(newAnswerArray);
 
                     // console.log(answerField + " THIS IS NSWER FIELD")
 
-                    const newAnswerInputArray = answerFieldInputs.filter((fieldInput) => fieldInput.number != num);
+                    const newAnswerInputArray = answerFieldInputs.filter((fieldInput) => fieldInput.number !== num);
                     console.log(JSON.stringify(newAnswerInputArray) + " THIS IS NEW ANSWER INPUT ARRAY");
                     setAnswerFieldInputs(newAnswerInputArray);
 
@@ -48,6 +55,36 @@ const MultipleChoice = () => {
       return (
         <ul style={{listStyle: 'none'}}>{answerFields}</ul>
       );
+    }
+
+    const sendQuestion = async () => {
+        const url = 'http://localhost:8000/survey/';
+        const options = {
+          method: 'PATCH',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
+            // 'Access-Control-Allow-Credentials': true
+          },
+          body: JSON.stringify({
+              questionInput,
+              answerFieldInputs
+          }),
+          credentials: 'include',
+          cors: true
+        };
+
+        const response = await fetch(url, options)
+          .then(res => {
+            if(res.status === 200) {
+                console.log("request good")
+                res.json();
+            }
+          }).catch(err => {
+              console.error(err);
+          }
+          );
+        return response;
     }
 
     return (
@@ -75,9 +112,9 @@ const MultipleChoice = () => {
                 }}>
                 remove answer field
             </button>
-        <form onSubmit={(event) => {
+        <form onSubmit={ (event) => {
             event.preventDefault();
-            console.log(event.target[0].value)
+             sendQuestion();
             }}>
             <div>{createAnswerFields(answerField)}</div>
             <button style={{justifyContent: "center", padding: 10, height: 40, width: 120}}>save question</button>
