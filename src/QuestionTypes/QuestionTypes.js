@@ -1,12 +1,11 @@
 import React from 'react';
-
-
+import MultipleChoice from './MultipleChoice';
 
 const QuestionTypes = (qType) => {
     const questionType = () => {
         switch(qType.qType) {
             case 'multiple-choice':
-            return (<div>multiple-choice</div>);
+            return (<div><MultipleChoice></MultipleChoice></div>);
             case 'dropdown':
             return (<div>dropdown</div>);
             case 'checkboxes':
