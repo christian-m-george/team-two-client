@@ -1,4 +1,4 @@
-import  React, { useState } from "react";
+import  React, { useState, createContext } from "react";
 import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import validate from "../Utils/Validate.js";
@@ -6,6 +6,7 @@ import validate from "../Utils/Validate.js";
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [userId, setUserId] = useState(null);
     const history = useHistory();
         
     // redirect to create-survey
@@ -31,22 +32,21 @@ export default function Login() {
           cors: true
         };
 
-        const response = await fetch(url, options)
-          .then(res => {
+        const response = await fetch(url, options).then(res => {
             if(res.status === 200) {
-                console.log("WE DID IT!!!!!!!!!!!!!!!")
-                res.json();
-                reroute();
+                res.json().then(data => {
+                  setUserId(data.id);
+                }).then(
+                    reroute()
+                ).catch(err => {
+                    throw new Error(err);
+                })
             }
-            console.log(res.status);
-          }).catch(err => {
-              console.error(err);
-              return false;
-          }
-          );
+            }).catch(err => {
+              console.log(err);
+          });
 
-        if (response) return true
-        else return false;
+        return response
     }
 
     return <div>
