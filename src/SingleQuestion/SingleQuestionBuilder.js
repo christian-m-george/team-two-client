@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import QuestionTypes from '../QuestionTypes/QuestionTypes';
 
-
-export default function SingleQuestionBuilder() {
+const SingleQuestionBuilder = (props) => {
     const [questionType, setQuestionType] = useState('multiple-choice');
-
+    console.log( " and the " +
+    JSON.stringify(props))
 
     return (
         <div className='single-question-builder-wrapper wrapper'>
@@ -30,7 +30,7 @@ export default function SingleQuestionBuilder() {
                     </div>
                 </form>
                 <div>
-                    <QuestionTypes qType={questionType} />
+                    <QuestionTypes surveyId={props.surveyId} num={props.num} questionType={questionType} />
                 </div>
                 <div>
                 </div>
@@ -38,3 +38,5 @@ export default function SingleQuestionBuilder() {
         </div>
     )
 }
+
+export default SingleQuestionBuilder;
