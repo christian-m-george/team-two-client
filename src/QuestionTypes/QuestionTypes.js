@@ -1,11 +1,12 @@
 import React from 'react';
 import MultipleChoice from './MultipleChoice';
 
-const QuestionTypes = (qType) => {
-    const questionType = () => {
-        switch(qType.qType) {
+const QuestionTypes = (props) => {
+    console.log(JSON.stringify(props));
+    const questionType = (num, surveyId) => {
+        switch(props.questionType) {
             case 'multiple-choice':
-            return (<div><MultipleChoice></MultipleChoice></div>);
+            return (<div><MultipleChoice num={num} surveyId={surveyId}></MultipleChoice></div>);
             case 'dropdown':
             return (<div>dropdown</div>);
             case 'checkboxes':
@@ -35,7 +36,7 @@ const QuestionTypes = (qType) => {
          }
     }
 
-    return <div className='question-type-wrapper wrapper'>{questionType()}</div>
+    return <div className='question-type-wrapper wrapper'>{questionType(props.num, props.surveyId)}</div>
 }
 
 export default QuestionTypes;
