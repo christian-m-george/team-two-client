@@ -1,6 +1,6 @@
 import React, { useState }  from "react";
 
-const MultipleChoice = () => {
+const MultipleChoice = (props) => {
     const [answerField, setAnswerField] = useState([0, 1]);
     const [answerFieldInputs, setAnswerFieldInputs] = useState([{number: 0, value: ''}, {number: 1, value: ''}]);
     const [questionInput, setQuestionInput] = useState('');
@@ -9,51 +9,50 @@ const MultipleChoice = () => {
         return answerField[answerField.length-1] + 1;
     }
 
-    // Need to update the state when the input on these fields is changed. Need to figure out a way to manage
-    // different fields and inputs on these fields that can be added and removed
     const createAnswerFields = (answerField) => {
         const answerFields = answerField.map((num) =>
         <li key={num}>
-            <label htmlFor='enter-answer' style={{height: 100, width: 20}}>enter your answer</label>
-            <input  
-                style={{height: 30, margin:10, width: 100}} 
-                type='text' 
-                onChange={(event) => {
-                    const markers = answerFieldInputs.map((a) => {
-                        if (a.number !== num) {
-                            return a;
-                        } else {
-                            a.value = event.target.value;
-                            return a;
-                        }
-                    });
-                    // markers[num] = {number: num, value: event.target.value};
-                    // console.log(JSON.stringify(markers) +  " WE ARE GOING TO SET THE ANSWER FIELD STATE TO THIS")
-                    setAnswerFieldInputs(markers);
-                }}
+            <div className='question-container' style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%", verticalAlign: "middle"}}>
+                <label htmlFor='enter-answer' style={{display: "vagra", justifyContent: "center", alignItems: "center", padding: 10, display: "flex", height: 30, width: "15%", fontSize: 11}}>enter your answer</label>
+                <input  
+                    style={{height: 50, margin:10, width: "65%"}} 
+                    type='text' 
+                    onChange={(event) => {
+                        const markers = answerFieldInputs.map((a) => {
+                            if (a.number !== num) {
+                                return a;
+                            } else {
+                                a.value = event.target.value;
+                                return a;
+                            }
+                        });
+                        setAnswerFieldInputs(markers);
+                    }}
                 />
+           
             <button 
                 onClick={() => {
-                if(answerField.length > 2) {
-                    console.log(num + " IS THE NUMBER OF REMOVED FIELD INPUT");
-
-                    const newAnswerArray = answerField.filter((key) => key !== num);
-                    console.log(newAnswerArray + " THIS IS NEW ANSWER ARRAY");
-                    setAnswerField(newAnswerArray);
-
-                    // console.log(answerField + " THIS IS NSWER FIELD")
-
-                    const newAnswerInputArray = answerFieldInputs.filter((fieldInput) => fieldInput.number !== num);
-                    console.log(JSON.stringify(newAnswerInputArray) + " THIS IS NEW ANSWER INPUT ARRAY");
-                    setAnswerFieldInputs(newAnswerInputArray);
-
-                    // console.log(answerFieldInputs + " THIS IS ANSWER INPUT FIELD");
-                }}
-                }>remove question</button>
+                    if(answerField.length > 2) {
+                        
+                        const newAnswerArray = answerField.filter((key) => key !== num);
+                        console.log(newAnswerArray + " THIS IS NEW ANSWER ARRAY");
+                        setAnswerField(newAnswerArray);
+                        
+                        const newAnswerInputArray = answerFieldInputs.filter((fieldInput) => fieldInput.number !== num);
+                        console.log(JSON.stringify(newAnswerInputArray) + " THIS IS NEW ANSWER INPUT ARRAY");
+                        setAnswerFieldInputs(newAnswerInputArray);
+                    
+                    }}
+                }
+                style={{width: "12%", height: 20}}
+                >remove</button>
+            
+            </div>
+            
         </li>
       );
       return (
-        <ul style={{listStyle: 'none'}}>{answerFields}</ul>
+        <ul style={{listStyle: 'none', paddingInlineStart: 0}}>{answerFields}</ul>
       );
     }
 
@@ -67,6 +66,8 @@ const MultipleChoice = () => {
             // 'Access-Control-Allow-Credentials': true
           },
           body: JSON.stringify({
+              surveyId: props.surveyId,
+              num: props.num,
               questionInput,
               answerFieldInputs
           }),
@@ -82,8 +83,7 @@ const MultipleChoice = () => {
             }
           }).catch(err => {
               console.error(err);
-          }
-          );
+          });
         return response;
     }
 
