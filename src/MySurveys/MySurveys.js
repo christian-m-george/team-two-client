@@ -1,19 +1,9 @@
 import React, {useState, useEffect} from 'react';
-
+import Navigation from '../Navigation/Navigation';
 
 const MySurveys = () => {
-  const [list, setList] = useState(['', ''])
-  useEffect(() => {
-    let mounted = true;
-    getSurveys()
-      .then(surveys => {
-        if(mounted) {
-          setList(surveys)
-          // console.log(surveys);
-        }
-      })
-    return () => mounted = false;
-  }, [])
+  const [surveys, setSurveys] = useState([""])
+  useEffect(() => getSurveys())
 
     const getSurveys =  async () => {
       console.log('tried to get surveys');
@@ -29,7 +19,7 @@ const MySurveys = () => {
           cors: true
         };
         
-        let surveys;
+        let baloney;
         // console.log(JSON.stringify(surveyFormData) + " THIS IS SURVEY FORM DATA");
         const response = await fetch(url, options)
           .then(
@@ -37,8 +27,8 @@ const MySurveys = () => {
               if (res.status === 200) {
                 res.json().then(
                 data => {
-                surveys = data;
-                setList(data);
+                baloney = data;
+                setSurveys(data);
                 console.log(data + " THIS IS DATA")
                 return data
               }).catch(error => {
@@ -47,31 +37,17 @@ const MySurveys = () => {
           ).catch(error => {
             throw new Error(error);
           })
-        console.log(response + " THI SIS RPEONSE")
-        return surveys;
+        return response;
     }
-
-
-    // const showSurveys = async () => {
-    //   const surveys = await getSurveys();
-    //   const surveyItems = surveys.map(a => 
-    //     <ul>a.</ul>)
-    // }
-
-    // const mySurveys = async () => {
-    //     let surveys = await getSurveys.map((a) => 
-    //             <li>
-    //                 <div>{JSON.stringify(a)}</div>
-    //             </li>
-    //         )
-        
-    //     return <ul style={{listStyle: "none"}}>{surveys}</ul>
-    // }
-
-    return     <div className="wrapper">
-    <h1>My Surveys</h1>
-    {/* <li>{showSurveys()}</li> */}
-  </div>
+    return(
+      <div className="wrapper">
+        <Navigation />
+       <h1>My Surveys</h1>
+       <ul style={{height: 1000, width: "100%", listStyle: "none", paddingInlineStart: 0}}>{surveys.map(item => <li key={item.item}
+       style={{padding: 10, margin: "auto", width: "85%", fontSize: 8}}
+       >{JSON.stringify(item)}</li>)}</ul>
+     </div>
+    )
 }
 
 export default MySurveys;

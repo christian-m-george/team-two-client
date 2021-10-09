@@ -3,39 +3,38 @@ import { useHistory, Link } from 'react-router-dom';
 import validate from "../Utils/Validate.js";
 import './Register.css';
 
-export default function Register(props) {
+export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [fName, setFName] = useState("");
     const [lName, setLName] = useState("");
     const history = useHistory();
-    
+
     const userData = {
         firstName: fName, 
         lastName: lName,
         email: email, 
         password: password
     }
-    
-            
+
     // redirect to create-survey
     const reroute = () => {
         history.push("/login");
     }
 
-const submitUserData = (userData) => {
-    const url = 'http://localhost:8000/user';
-    const options = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-      body: JSON.stringify(
-        userData
-      )
+    const submitUserData = (userData) => {
+        const url = 'http://localhost:8000/user';
+        const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(
+            userData
+        )
     };
-
+    
     console.log(userData)
     
     fetch(url, options)

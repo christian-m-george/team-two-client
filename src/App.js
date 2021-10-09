@@ -11,6 +11,7 @@ import AccountSettings from './AccountSettings/AccountSettings.js';
 import SingleQuestionBuilder from './SingleQuestion/SingleQuestionBuilder.js';
 import { Route } from 'react-router-dom';
 import SurveyWizard from './SurveyBuilder/SurveyWizard.js';
+import SurveyTakerWrapper from './SurveyTaker/SurveyTakerWrapper.js';
 import MySurveys from './MySurveys/MySurveys.js';
 
 const UserContext = createContext();
@@ -32,7 +33,8 @@ function App() {
           <Route path='/account-settings' component={AccountSettings}></Route>
           <Route path='/single-question-builder' component={SingleQuestionBuilder}></Route>
           <Route path='/survey-wizard' component={SurveyWizard}></Route>
-          
+          <Route path='/survey-taker' component={SurveyTakerWrapper}></Route>
+  
       </div>
       </UserContext.Provider>
     </div>

@@ -47,14 +47,14 @@ import './SurveyWizard.css'
                 res.json().then(data => {
                     setSurveyId(data.id);
                     setQuestionsHidden(false);
-                }).catch(err => {throw new Error(err)})
+                }).catch(err => console.log(err))
             } else if (res.status === 401) {
                 history.push('/login')
             }
         }
           ).catch(
-              err => {throw new Error(err)
-        });
+              err => console.log(err)
+        );
 
         return response;
     }

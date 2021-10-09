@@ -31,7 +31,8 @@ const MultipleChoice = (props) => {
                 />
            
             <button 
-                onClick={() => {
+                onClick={(event) => {
+                    event.preventDefault();
                     if(answerField.length > 2) {
                         
                         const newAnswerArray = answerField.filter((key) => key !== num);
@@ -57,9 +58,9 @@ const MultipleChoice = (props) => {
     }
 
     const sendQuestion = async () => {
-        const url = 'http://localhost:8000/survey/';
+        const url = 'http://localhost:8000/question/';
         const options = {
-          method: 'PATCH',
+          method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',
@@ -68,6 +69,7 @@ const MultipleChoice = (props) => {
           body: JSON.stringify({
               surveyId: props.surveyId,
               num: props.num,
+              questionType: 'multiple choice',
               questionInput,
               answerFieldInputs
           }),
@@ -78,8 +80,7 @@ const MultipleChoice = (props) => {
         const response = await fetch(url, options)
           .then(res => {
             if(res.status === 200) {
-                console.log("request good")
-                res.json();
+                res.json().then(data => console.log(data))
             }
           }).catch(err => {
               console.error(err);
