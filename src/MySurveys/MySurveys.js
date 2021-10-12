@@ -19,24 +19,19 @@ const MySurveys = () => {
           cors: true
         };
         
-        let baloney;
         // console.log(JSON.stringify(surveyFormData) + " THIS IS SURVEY FORM DATA");
         const response = await fetch(url, options)
           .then(
             res => {
               if (res.status === 200) {
                 res.json().then(
-                data => {
-                baloney = data;
-                setSurveys(data);
-                console.log(data + " THIS IS DATA")
-                return data
-              }).catch(error => {
+                data => data).catch(error => {
                 throw new Error(error);
               })}}
           ).catch(error => {
             throw new Error(error);
           })
+        if(response) setSurveys(response);
         return response;
     }
     return(
