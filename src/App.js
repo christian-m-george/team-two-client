@@ -13,7 +13,9 @@ import { Route } from 'react-router-dom';
 import SurveyWizard from './SurveyBuilder/SurveyWizard.js';
 import SurveyTakerWrapper from './SurveyTaker/SurveyTakerWrapper.js';
 import MySurveys from './MySurveys/MySurveys.js';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const UserContext = createContext();
 
 function App() {
