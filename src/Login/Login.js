@@ -22,7 +22,7 @@ const Login = () => {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',
-            // 'Access-Control-Allow-Credentials': true
+            "Access-Control-Allow-Origin": `${process.env.REACT_APP_NODE_URL}`
           },
           body: JSON.stringify(
             {email: email,
