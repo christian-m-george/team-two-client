@@ -1,9 +1,9 @@
-import  React, { useState, createContext } from "react";
+import  React, { useState } from "react";
 import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import validate from "../Utils/Validate.js";
 
-export default function Login() {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [, setUserId] = useState(null);
@@ -15,7 +15,6 @@ export default function Login() {
     }
     console.log(process.env);
 
-    // User data for login needs to be maxed against existing database user information, which does not currently exist
     const submitUserData = async () => {
         const url = `${process.env.REACT_APP_NODE_URL}/auth`;
         const options = {
@@ -81,3 +80,5 @@ export default function Login() {
         </div>
     </div>
 };
+
+export default Login;

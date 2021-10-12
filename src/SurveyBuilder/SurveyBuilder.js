@@ -1,6 +1,5 @@
 import React from 'react';
 import SurveyWizard from './SurveyWizard';
-import SingleQuestionBuilder from '../SingleQuestion/SingleQuestionBuilder.js';
 
 export default function SurveyBuilder() {
     
