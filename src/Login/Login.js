@@ -6,17 +6,18 @@ import validate from "../Utils/Validate.js";
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userId, setUserId] = useState(null);
+    const [, setUserId] = useState(null);
     const history = useHistory();
         
     // redirect to create-survey
     const reroute = () => {
         history.push("/");
     }
+    console.log(process.env);
 
     // User data for login needs to be maxed against existing database user information, which does not currently exist
     const submitUserData = async () => {
-        const url = 'http://localhost:8000/auth';
+        const url = `${process.env.REACT_APP_NODE_URL}/auth`;
         const options = {
           method: 'POST',
           headers: {
@@ -38,9 +39,7 @@ export default function Login() {
                   setUserId(data.id);
                 }).then(
                     reroute()
-                ).catch(err => {
-                    throw new Error(err);
-                })
+                )
             }
             }).catch(err => {
               console.log(err);
