@@ -16,7 +16,7 @@ const Login = () => {
     console.log(process.env);
 
     const submitUserData = async () => {
-        const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_NODE_URL}/auth` : `${process.env.REACT_APP_SERVER_URL}/auth`;
+        const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/auth` : `${process.env.REACT_APP_LOCAL}/auth`;
         const options = {
           method: 'POST',
           headers: {
