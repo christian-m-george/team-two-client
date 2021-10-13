@@ -26,7 +26,7 @@ import './SurveyWizard.css'
         }
         
         console.log(surveyFormData);
-        const url = 'http://localhost:8000/survey';
+        const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/survey` :  `${process.env.REACT_APP_LOCAL}/survey`;
     
         const options = {
           method: 'POST',

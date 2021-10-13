@@ -23,7 +23,7 @@ export default function Register() {
     }
 
     const submitUserData = (userData) => {
-        const url = 'http://localhost:8000/user';
+        const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/user` : `${process.env.REACT_APP_LOCAL}/user`;
         const options = {
         method: 'POST',
         headers: {

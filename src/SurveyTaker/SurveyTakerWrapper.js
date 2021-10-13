@@ -6,8 +6,8 @@ const SurveyTakeWrapper = () => {
     const [questions, setQuestions] = useState(null);
     const surveyId = 86;
     
-    const questionUrl = `http://localhost:8000/question/${surveyId}`;
-    const surveyUrl = `http://localhost:8000/survey/${surveyId}`;
+    const questionUrl = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/question` : `${process.env.REACT_APP_LOCAL}/question`;
+    const surveyUrl = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/survey` : `${process.env.REACT_APP_LOCAL}/survey`;
     const options = {
       method: 'GET',
       headers: {

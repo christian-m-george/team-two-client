@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 const Logout = () => {
     const history = useHistory();
-    const url = "http://localhost:8000/logout";
+    const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/logout` : `${process.env.REACT_APP_LOCAL}/logout`;
 
     const options = {
         method: 'GET',

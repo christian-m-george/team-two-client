@@ -58,7 +58,7 @@ const MultipleChoice = (props) => {
     }
 
     const sendQuestion = async () => {
-        const url = 'http://localhost:8000/question/';
+        const url = process.env.NODE_ENV === 'production' ? `${proces.env.REACT_APP_HEROKU}/question` : `${proces.env.REACT_APP_LOCAL}/question`;
         const options = {
           method: 'POST',
           headers: {

@@ -2,9 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 const MySurveys = () => {
   const [surveys, setSurveys] = useState([]);
-
-  const url = `http://localhost:8000/survey/all`;
-  
+  const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/survey/86` : `${process.env.REACT_APP_LOCAL}/survey/86`;
   const options = {
     method: 'GET',
     headers: {

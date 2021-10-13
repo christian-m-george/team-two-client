@@ -16,13 +16,12 @@ const Login = () => {
     console.log(process.env);
 
     const submitUserData = async () => {
-        const url = `${process.env.REACT_APP_NODE_URL}/auth`;
+        const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_NODE_URL}/auth` : `${process.env.REACT_APP_SERVER_URL}/auth`;
         const options = {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": `${process.env.REACT_APP_NODE_URL}`
           },
           body: JSON.stringify(
             {email: email,
