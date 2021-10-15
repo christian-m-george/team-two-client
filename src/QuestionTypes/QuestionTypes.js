@@ -6,7 +6,7 @@ const QuestionTypes = (props) => {
     const questionType = (num, surveyId) => {
         switch(props.questionType) {
             case 'multiple-choice':
-            return (<div><MultipleChoice num={num} surveyId={surveyId}></MultipleChoice></div>);
+            return (<div><MultipleChoice setSaved={props.setSaved} num={num} surveyId={surveyId}></MultipleChoice></div>);
             case 'dropdown':
             return (<div>dropdown</div>);
             case 'checkboxes':

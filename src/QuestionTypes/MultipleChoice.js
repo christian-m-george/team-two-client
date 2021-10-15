@@ -13,7 +13,7 @@ const MultipleChoice = (props) => {
         const answerFields = answerField.map((num) =>
         <li key={num}>
             <div className='question-container' style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%", verticalAlign: "middle"}}>
-                <label htmlFor='enter-answer' style={{display: "vagra", justifyContent: "center", alignItems: "center", padding: 10, display: "flex", height: 30, width: "15%", fontSize: 11}}>enter your answer</label>
+                <label htmlFor='enter-answer' style={{justifyContent: "center", alignItems: "center", padding: 10, display: "flex", height: 30, width: "15%", fontSize: 11}}>enter your answer</label>
                 <input  
                     style={{height: 50, margin:10, width: "65%"}} 
                     type='text' 
@@ -116,6 +116,7 @@ const MultipleChoice = (props) => {
         <form onSubmit={ (event) => {
             event.preventDefault();
              sendQuestion();
+             props.setSaved(true);
             }}>
             <div>{createAnswerFields(answerField)}</div>
             <button style={{justifyContent: "center", padding: 10, height: 40, width: 120}}>save question</button>

@@ -3,9 +3,17 @@ import QuestionTypes from '../QuestionTypes/QuestionTypes';
 
 const SingleQuestionBuilder = (props) => {
     const [questionType, setQuestionType] = useState('multiple-choice');
+    const [isSaved, setSaved] = useState(false);
     console.log( " and the " +
     JSON.stringify(props))
 
+    if(isSaved) {
+        return (
+            <div style={{display: "flex", justifyContent: "space-around", alignItems: 'center', border: "1px solid green", padding: 20, margin: 10}}>
+                Saved
+            </div>
+        )
+    }
     return (
         <div className='single-question-builder-wrapper wrapper'>
             <div className='select-question-type-wrapper wrapper'>
@@ -30,7 +38,7 @@ const SingleQuestionBuilder = (props) => {
                     </div>
                 </form>
                 <div>
-                    <QuestionTypes surveyId={props.surveyId} num={props.num} questionType={questionType} />
+                    <QuestionTypes setSaved={setSaved} surveyId={props.surveyId} num={props.num} questionType={questionType} />
                 </div>
                 <div>
                 </div>
