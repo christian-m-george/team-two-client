@@ -7,14 +7,13 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [, setUserId] = useState(null);
+    const [error, setError] = useState(null);
     const history = useHistory();
         
     // redirect to create-survey
     const reroute = () => {
         history.push("/");
     }
-    console.log(process.env);
-
     const submitUserData = async () => {
         const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/auth` : `${process.env.REACT_APP_LOCAL}/auth`;
         console.log(url + " THIS IS URL")
@@ -36,12 +35,13 @@ const Login = () => {
             if(res.status === 200) {
                 res.json().then(data => {
                   setUserId(data.id);
-                }).then(
-                    reroute()
-                )
+                }).catch(error => console.log(error))
+                reroute();
+            } else if (res.status === 400) {
+                res.json().then(data => setError(data))
             }
             }).catch(err => {
-              console.log(err);
+              console.log(err.message);
           });
 
         return response
@@ -61,20 +61,26 @@ const Login = () => {
             >
             <div className='email-input-wrapper input-wrapper wrapper'>
                 <div className='label-wrapper wrapper'><label htmlFor='email'>email</label></div>
-                <input type='text' id="email" name="email" onChange={event => setEmail(event.target.value)}></input>
+                <input type='text' id="email" name="email" onChange={event => {
+                    setEmail(event.target.value)
+                    setError(null);
+                }}></input>
             </div>
 
             <div className='password-input-wrapper input-wrapper wrapper'>
                 <div className='label-wrapper wrapper'><label htmlFor='password'>password</label></div>
-                <input type='password' id="password" name="password" onChange={event => setPassword(event.target.value)}></input>
+                <input type='password' id="password" name="password" onChange={event => {
+                    setPassword(event.target.value)
+                    setError(null);
+                    }}></input>
             </div>
 
             <div className='button-wrapper wrapper'>
                 <button disabled={!validate.email(email) || !validate.password(password)} >Login</button>
             </div>
-
+            {error ? <div className='wrapper'>{error}</div> :null}
             <div className ='register-link-wrapper wrapper'>
-                <Link to='/register'>Register Here</Link>
+                <Link to='/register'>Register Here</Link><div>Forgot Password?</div>
             </div>
             </form>
         </div>
