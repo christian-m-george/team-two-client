@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation'
 import SurveyIcon from './SurveyIcon';
 
-
 const MySurveys = () => {
-  const [surveys, setSurveys] = useState([]);
   const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}` : `${process.env.REACT_APP_LOCAL}`;
+  const [surveys, setSurveys] = useState([]);
   const history = useHistory();
   const getSurveyOptions = {
     method: 'GET',
@@ -54,6 +53,14 @@ const MySurveys = () => {
       .then(data => data).catch(error => console.log(error));
   }
 
+  function nav(input) {
+    history.push({
+      pathname: "/edit-survey",
+      state: {
+        survey: input
+      }
+    });
+  }
 
   return (
     <div style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
@@ -67,10 +74,7 @@ const MySurveys = () => {
             <SurveyIcon item={item}/>
             <div>
                 <button style={{margin: 2, padding: 5}}>Publish</button>
-                <button style={{margin: 2, padding: 5}} onClick={() => history.push({
-                  pathname: '/survey-builder',
-                  state: item
-                  })}>Edit</button>
+                <button style={{margin: 2, padding: 5}} onClick={() => nav(item)}>Edit</button>
                 <button style={{margin: 2, padding: 5}} onClick={async () => await deleteSurvey(item.id)}>Delete</button>
             </div>
           </li>)}

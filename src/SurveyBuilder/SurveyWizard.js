@@ -13,6 +13,7 @@ import './SurveyWizard.css'
     const [surveyStyle, setSurveyStyle] = useState(true);
     const [surveyId, setSurveyId] = useState();
     const [questionsHidden, setQuestionsHidden] = useState(true);
+    const [questionSaved, setQuestionSaved] = useState(0);
     const history = useHistory();
 
     const submitSurveyWizardData = async () => {
@@ -65,12 +66,10 @@ import './SurveyWizard.css'
         for(let i = 0; i < data; i++) {
             builderArray.push(i);
         }
-        // console.log(builderArray);
         const questions = builderArray.map((num) => 
                
                 <li key={num}>
-                    <label htmlFor='enter-answer' style={{height: 100, width: 20}}>question {num + 1}</label>
-                    <SingleQuestionBuilder surveyId={surveyId} num={num}/>
+                    <SingleQuestionBuilder questionSaved={questionSaved} setQuestionSaved={setQuestionSaved} surveyId={surveyId} num={num}/>
                 </li>
         )
         return (
@@ -169,9 +168,34 @@ import './SurveyWizard.css'
                 </form>
             </div>
         </div>
+                <div hidden={questionsHidden}>{surveyName}: {questionSaved}/{numOfQuestions} Questions saved</div>
                 <div hidden={questionsHidden}>
                     {questionBuilders(numOfQuestions)}
                 </div>
+                {questionSaved == numOfQuestions ? <div style={{padding: 20, display: questionsHidden ? "none" : ""}}><button onClick={() => {
+                    history.push({
+                        pathname: "/review-survey/",
+                        state: {
+                          surveyId: surveyId,
+                          isPrivate: isPrivate,
+                          isRandom: isRandom,
+                          numOfQuestions: numOfQuestions,
+                          surveyName: numOfQuestions,
+                          surveyCategory: surveyCategory,
+                          surveyStyle: surveyStyle
+                        }
+                      })
+                }}>Review your survey</button>
+                
+                <button onClick={() => {
+                    history.push({
+                        pathname: "/publish-survey/",
+                        state: {
+                          surveyId: surveyId
+                        }
+                      })
+                }}>Publish your survey</button>
+                </div> : <p style={{display: questionsHidden ? "none" : ""}}>Please fill out all questions</p>}
     </div>
     )
 }

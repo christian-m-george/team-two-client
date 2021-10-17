@@ -4,6 +4,7 @@ const MultipleChoice = (props) => {
     const [answerField, setAnswerField] = useState([0, 1]);
     const [answerFieldInputs, setAnswerFieldInputs] = useState([{number: 0, value: ''}, {number: 1, value: ''}]);
     const [questionInput, setQuestionInput] = useState('');
+    const [unsaved, changeSaved] = useState(true);
 
     const nextNum = () => {
         return answerField[answerField.length-1] + 1;
@@ -117,6 +118,10 @@ const MultipleChoice = (props) => {
             event.preventDefault();
              sendQuestion();
              props.setSaved(true);
+             if(unsaved){
+                 props.setQuestionSaved(props.questionSaved + 1)
+                 changeSaved(false)
+            };
             }}>
             <div>{createAnswerFields(answerField)}</div>
             <button style={{justifyContent: "center", padding: 10, height: 40, width: 120}}>save question</button>

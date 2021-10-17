@@ -13,7 +13,11 @@ import { Route } from 'react-router-dom';
 import SurveyWizard from './SurveyBuilder/SurveyWizard.js';
 import SurveyTakerWrapper from './SurveyTaker/SurveyTakerWrapper.js';
 import MySurveys from './MySurveys/MySurveys.js';
+import EditSurvey from './EditSurvey/EditSurvey.js';
+import ReviewSurvey from './ReviewSurvey/ReviewSurvey.js';
+
 import dotenv from 'dotenv';
+import PublishSurvey from './PublishSurvey/PublishSurvey.js';
 
 dotenv.config();
 const UserContext = createContext();
@@ -36,6 +40,9 @@ function App() {
           <Route path='/single-question-builder' component={SingleQuestionBuilder}></Route>
           <Route path='/survey-wizard' component={SurveyWizard}></Route>
           <Route path='/survey-taker' component={SurveyTakerWrapper}></Route>
+          <Route path='/edit-survey' component={EditSurvey}></Route>
+          <Route path='/review-survey' component={ReviewSurvey}></Route>
+          <Route path='/publish-survey' component={PublishSurvey}></Route>
   
       </div>
       </UserContext.Provider>
