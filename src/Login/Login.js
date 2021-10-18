@@ -80,7 +80,10 @@ const Login = () => {
             </div>
             {error ? <div className='wrapper'>{error}</div> :null}
             <div className ='register-link-wrapper wrapper'>
-                <Link to='/register'>Register Here</Link><div>Forgot Password?</div>
+                <Link to='/register'>Register Here</Link>
+                <button style={{margin: 5}} onClick={() => {
+                    history.push('/change-password');
+                }}>Forgot password?</button>
             </div>
             </form>
         </div>

@@ -1,13 +1,14 @@
 import React from 'react';
 import Navigation from '../Navigation/Navigation';
 import ChangePassword from '../Utils/ChangePassword';
+import { Link } from 'react-router-dom';
 
 export default function AccountSettings() {
     return (
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <Navigation />
             This is AccountSettings component
-            <ChangePassword />
+            <Link to='change-password' >Change your password here</Link>
         </div>
     )
 }

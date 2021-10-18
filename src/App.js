@@ -15,37 +15,41 @@ import SurveyTakerWrapper from './SurveyTaker/SurveyTakerWrapper.js';
 import MySurveys from './MySurveys/MySurveys.js';
 import EditSurvey from './EditSurvey/EditSurvey.js';
 import ReviewSurvey from './ReviewSurvey/ReviewSurvey.js';
-import SurveyTaker from './SurveyTaker/SurveyTaker.js';
+import ChangePassword from './Utils/ChangePassword.js';
+import ResetPassword from './Utils/ResetPassword.js';
 
 import dotenv from 'dotenv';
 import PublishSurvey from './PublishSurvey/PublishSurvey.js';
+import SurveyTaker from './SurveyTaker/SurveyTaker.js';
 
 dotenv.config();
 const UserContext = createContext();
-
+// perhaps pass function to set user state there in the context idk though
 function App() {
   return (
     <div className='App'>
       <UserContext.Provider value={null}>
-      <div>
-          <Route exact path='/' component={Home}></Route>
-          <Route path='/login' component={Login}></Route>
-          <Route path='/register' component={Register}></Route>
-          <Route path='/create-survey' component={CreateSurvey}></Route>
-          <Route path='/survey-builder' component={SurveyBuilder}></Route>
-          <Route path='/my-surveys' component={MySurveys}></Route>
-          <Route path='/auth-context' component={Auth}></Route>
-          <Route path='/survey/:token' component={SurveyTaker}></Route>
-          <Route path='/import-survey' component={ImportSurvey}></Route>
-          <Route path='/survey-templates' component={SurveyTemplates}></Route>
-          <Route path='/account-settings' component={AccountSettings}></Route>
-          <Route path='/single-question-builder' component={SingleQuestionBuilder}></Route>
-          <Route path='/survey-wizard' component={SurveyWizard}></Route>
-          <Route path='/edit-survey' component={EditSurvey}></Route>
-          <Route path='/review-survey' component={ReviewSurvey}></Route>
-          <Route path='/publish-survey' component={PublishSurvey}></Route>
-  
-      </div>
+        <div>
+            <Route exact path='/' component={Home}></Route>
+            <Route path='/login' component={Login}></Route>
+            <Route path='/register' component={Register}></Route>
+            <Route path='/create-survey' component={CreateSurvey}></Route>
+            <Route path='/survey-builder' component={SurveyBuilder}></Route>
+            <Route path='/my-surveys' component={MySurveys}></Route>
+            <Route path='/auth-context' component={Auth}></Route>
+            <Route path='/import-survey' component={ImportSurvey}></Route>
+            <Route path='/survey-templates' component={SurveyTemplates}></Route>
+            <Route path='/account-settings' component={AccountSettings}></Route>
+            <Route path='/single-question-builder' component={SingleQuestionBuilder}></Route>
+            <Route path='/survey-wizard' component={SurveyWizard}></Route>
+            <Route path='/survey/:token' component={SurveyTaker}></Route>
+            <Route path='/survey-taker' component={SurveyTakerWrapper}></Route>
+            <Route path='/edit-survey' component={EditSurvey}></Route>
+            <Route path='/review-survey' component={ReviewSurvey}></Route>
+            <Route path='/publish-survey' component={PublishSurvey}></Route>
+            <Route path="/change-password/:token" component={ResetPassword}/>
+            <Route exact path="/change-password" component={ChangePassword}/>
+        </div>
       </UserContext.Provider>
     </div>
   );
