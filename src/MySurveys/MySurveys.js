@@ -6,6 +6,7 @@ import SurveyIcon from './SurveyIcon';
 const MySurveys = () => {
   const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}` : `${process.env.REACT_APP_LOCAL}`;
   const [surveys, setSurveys] = useState([]);
+  const [error, setError] = useState(null);
   const history = useHistory();
   const getSurveyOptions = {
     method: 'GET',
@@ -19,14 +20,19 @@ const MySurveys = () => {
 
   
   useEffect(() => {
-    fetch(`${url}/survey/all`, getSurveyOptions)
-      .then(results => results.json())
-      .then(data => {
-        console.log(data)
-        const surveys = data;
-        setSurveys(surveys);
-      });
-  }, []);
+      fetch(`${url}/survey/all`, getSurveyOptions)
+        .then(results => 
+          {
+            if (results.status === 200) {
+              results.json()
+            .then(data => {
+              const surveys = data;
+              setSurveys(surveys);
+            })} else {
+              setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down")
+            }
+          })
+    }, []);
 
 
   const deleteSurvey = async (input) => {
@@ -73,12 +79,18 @@ const MySurveys = () => {
           <li key={idx} style={{display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: 'center', margin: 5, padding: 5, border: "1px solid black"}}>
             <SurveyIcon item={item}/>
             <div>
-                <button style={{margin: 2, padding: 5}}>Publish</button>
+                <button style={{margin: 2, padding: 5}} onClick={() => history.push({
+                  pathname: '/publish-survey',
+                  state: {
+                    surveyId: item.id
+                  }
+                })}>Publish</button>
                 <button style={{margin: 2, padding: 5}} onClick={() => nav(item)}>Edit</button>
                 <button style={{margin: 2, padding: 5}} onClick={async () => await deleteSurvey(item.id)}>Delete</button>
             </div>
           </li>)}
       </ul>
+      {error ? <div className='wrapper' style={{display: "flex", justifyContent: "center", alignItems: 'center'}}>{error}</div> : null}
     </div>
   )
 }
