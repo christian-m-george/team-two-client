@@ -15,6 +15,7 @@ import SurveyTakerWrapper from './SurveyTaker/SurveyTakerWrapper.js';
 import MySurveys from './MySurveys/MySurveys.js';
 import EditSurvey from './EditSurvey/EditSurvey.js';
 import ReviewSurvey from './ReviewSurvey/ReviewSurvey.js';
+import SurveyTaker from './SurveyTaker/SurveyTaker.js';
 
 import dotenv from 'dotenv';
 import PublishSurvey from './PublishSurvey/PublishSurvey.js';
@@ -34,12 +35,12 @@ function App() {
           <Route path='/survey-builder' component={SurveyBuilder}></Route>
           <Route path='/my-surveys' component={MySurveys}></Route>
           <Route path='/auth-context' component={Auth}></Route>
+          <Route path='/survey/:token' component={SurveyTaker}></Route>
           <Route path='/import-survey' component={ImportSurvey}></Route>
           <Route path='/survey-templates' component={SurveyTemplates}></Route>
           <Route path='/account-settings' component={AccountSettings}></Route>
           <Route path='/single-question-builder' component={SingleQuestionBuilder}></Route>
           <Route path='/survey-wizard' component={SurveyWizard}></Route>
-          <Route path='/survey-taker' component={SurveyTakerWrapper}></Route>
           <Route path='/edit-survey' component={EditSurvey}></Route>
           <Route path='/review-survey' component={ReviewSurvey}></Route>
           <Route path='/publish-survey' component={PublishSurvey}></Route>
