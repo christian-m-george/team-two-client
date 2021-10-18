@@ -11,8 +11,14 @@ const Login = () => {
     const history = useHistory();
         
     // redirect to create-survey
-    const reroute = () => {
-        history.push("/");
+    const reroute = (id, token) => {
+        history.push({
+            pathname: "/",
+            state: {
+                id: id,
+                token: token
+            }
+        });
     }
     const submitUserData = async () => {
         const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/auth` : `${process.env.REACT_APP_LOCAL}/auth`;
@@ -34,9 +40,10 @@ const Login = () => {
         const response = await fetch(url, options).then(res => {
             if(res.status === 200) {
                 res.json().then(data => {
-                  setUserId(data.id);
+                    console.log(JSON.stringify(data) + "THIS IS DATA")
+                    setUserId(data.id);
+                    reroute(data.id, data.token);
                 }).catch(error => console.log(error))
-                reroute();
             } else if (res.status === 400) {
                 res.json().then(data => setError(data))
             }
