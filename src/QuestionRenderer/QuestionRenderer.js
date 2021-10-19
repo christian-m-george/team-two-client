@@ -10,12 +10,12 @@ const QuestionTypes = (props) => {
         switch(qType) {
             case 'multiple choice':
             return (<div>
-                        <MultipleChoiceRenderer 
+                        <MultipleChoiceRenderer
                             answerArray={props.answerArray}
-                            setUserAnswerArray={props.setUserAnswerArray} 
-                            question={props.question} 
-                            questionSaved={props.questionSaved} 
-                            setQuestionSaved={props.setQuestionSaved} 
+                            setUserAnswerArray={props.setUserAnswerArray}
+                            question={props.question}
+                            questionSaved={props.questionSaved}
+                            setQuestionSaved={props.setQuestionSaved}
                             setSaved={props.setSaved} 
                             num={num}/>
                     </div>);
@@ -38,14 +38,15 @@ const QuestionTypes = (props) => {
             case 'comment box':
             return (
                     <div>
-                        <CommentBoxRenderer 
+                        <CommentBoxRenderer
                             answerArray={props.answerArray}
                             setUserAnswerArray={props.setUserAnswerArray} 
                             question={props.question} 
                             questionSaved={props.questionSaved} 
                             setQuestionSaved={props.setQuestionSaved} 
                             setSaved={props.setSaved} 
-                            num={num}/>
+                            num={num}
+                        />
                     </div>);
             case 'contact-information':
             return (<div>contact-information</div>);
@@ -57,6 +58,7 @@ const QuestionTypes = (props) => {
             return (<div>default</div>)
          }
     }
+
 
     return <div className='question-type-wrapper wrapper'>{questionType(props.question.order, props.question.surveyId)}</div>
 }

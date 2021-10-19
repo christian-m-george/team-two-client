@@ -3,6 +3,8 @@ import { useHistory , useParams} from 'react-router';
 import Navigation from '../Navigation/Navigation';
 import QuestionRenderer from '../QuestionRenderer/QuestionRenderer'
 
+// Can question array be sorted by 
+
 const SurveyTaker = () => {
   const [userId, setUserId] = useState(null);
   const [emails, setEmails] = useState([]);
@@ -39,6 +41,8 @@ const SurveyTaker = () => {
                 console.log(data);
                 setEmails(data.emails);
                 setSurvey(data.survey);
+                const sortedQuestions = data.questions.sort((a,b) => (a.order > b.order ? 1 : -1))
+                console.log("SORTED: " + sortedQuestions);
                 setQuestions(data.questions);
                 setCheckedToken(true);
                 let myArray = [];
@@ -66,6 +70,7 @@ const SurveyTaker = () => {
     credentials: 'include',
     cors: true
   };
+
   
   const sendSurveyResponse = async () => {
     fetch(`${url}/response`, surveyResponseOptions).then(

@@ -11,7 +11,6 @@ const CommentBox = (props) => {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',
-            // 'Access-Control-Allow-Credentials': true
           },
           body: JSON.stringify({
               surveyId: props.surveyId,
