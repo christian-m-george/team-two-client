@@ -1,5 +1,6 @@
 import React from 'react';
 import MultipleChoice from './MultipleChoice';
+import CommentBox from './CommentBox';
 
 const QuestionTypes = (props) => {
     console.log(JSON.stringify(props));
@@ -26,7 +27,7 @@ const QuestionTypes = (props) => {
             case 'multiple-textbox':
             return (<div>multiple-textbox</div>);
             case 'comment-box':
-            return (<div>comment-box</div>);
+            return (<div><CommentBox questionSaved={props.questionSaved} setQuestionSaved={props.setQuestionSaved} setSaved={props.setSaved} num={num} surveyId={surveyId}/></div>);
             case 'contact-information':
             return (<div>contact-information</div>);
             case 'matrix-of-dropdowns':
@@ -38,7 +39,10 @@ const QuestionTypes = (props) => {
          }
     }
 
-    return <div className='question-type-wrapper wrapper'>{questionType(props.num, props.surveyId)}</div>
-}
+    return (
+    <div className='question-type-wrapper' style={{width: '100%'}}>
+        {questionType(props.num, props.surveyId)}
+    </div>
+)}
 
 export default QuestionTypes;

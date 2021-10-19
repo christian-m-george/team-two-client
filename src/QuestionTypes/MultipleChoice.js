@@ -81,6 +81,11 @@ const MultipleChoice = (props) => {
         const response = await fetch(url, options)
           .then(res => {
             if(res.status === 200) {
+                props.setSaved(true);
+                if(unsaved){
+                    props.setQuestionSaved(props.questionSaved + 1)
+                    changeSaved(false)
+                };
                 res.json().then(data => console.log(data))
             }
           }).catch(err => {
@@ -117,11 +122,6 @@ const MultipleChoice = (props) => {
         <form onSubmit={ (event) => {
             event.preventDefault();
              sendQuestion();
-             props.setSaved(true);
-             if(unsaved){
-                 props.setQuestionSaved(props.questionSaved + 1)
-                 changeSaved(false)
-            };
             }}>
             <div>{createAnswerFields(answerField)}</div>
             <button style={{justifyContent: "center", padding: 10, height: 40, width: 120}}>save question</button>

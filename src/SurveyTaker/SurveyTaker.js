@@ -1,6 +1,7 @@
 import React,  { useEffect, useState } from 'react';
 import { useHistory , useParams} from 'react-router';
 import Navigation from '../Navigation/Navigation';
+import QuestionRenderer from '../QuestionRenderer/QuestionRenderer'
 
 const SurveyTaker = () => {
   const [userId, setUserId] = useState(null);
@@ -42,7 +43,7 @@ const SurveyTaker = () => {
                 setCheckedToken(true);
                 let myArray = [];
                 for(let i=0; i< data.questions.length; i++) {
-                  myArray.push({questionNumber: data.questions[i].order, answer: null})
+                  myArray.push('')
                 }
                 setUserAnswerArray(myArray)
               })
@@ -110,39 +111,8 @@ const SurveyTaker = () => {
       <div style={{width:'100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <h1>{survey ? `${survey.title}` : "...loading"}</h1>
       </div>
-      <ul style={{margin: 'auto', listStyle: 'none', paddingInlineStart: 0, width:'100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-      {questions ? questions.map((question) => <li key={question.order} style={{padding: 20, paddingInlineStart: 0, width:'100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-              <div style={{justifyContent: 'left', width: "85%"}}>
-                <h5>{question.order + 1}. {question.questionText}</h5>
-              </div>
-
-              <ul style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 'auto'}}>
-              {question.answers.map((answer, idx) => <li key={idx} style={{width:'100%', paddingInlineStart: 0, display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
-                  <p style={{ margin: 5}}>{answer}</p>
-                  <input
-                  value={`${idx}`}
-                  type='radio' 
-                  // name={`options${questions.order}`} 
-                  onClick={(event) => {
-                    console.log(event.target.value + " " + question.order);
-                    const markers = userAnswerArray.map((a) => {
-                      // console.log(JSON.stringify(a) + ' this is question order ' + question.order + " and this is question number " + a.questionNumber)
-                      console.log(JSON.stringify(a) + "THIS IS STRINGIFIED ANSWER OBJ");
-                      if(question.order !== a.questionNumber) {
-                        return a;
-                      } else {
-                        return {...a, answer: event.target.value}
-                      }
-                    })
-                    console.log(JSON.stringify(markers) + ' this is maerkse')
-                    setUserAnswerArray(markers)
-                }}
-                  name={`${question.order}`} />
-              </li>
-              )}
-              </ul>
-          </li>
-      ) : null}
+      <ul style={{margin: 'auto', listStyle: 'none', paddingInlineStart: 0, width:'100%', display: 'flex', flexDirection: 'column'}}>
+      {questions ? questions.map((question) => <QuestionRenderer question={question} answerArray={userAnswerArray} setUserAnswerArray={setUserAnswerArray} />) : null}
       </ul>
       <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 'auto'}}>
         <button style={{width: "25%", padding: 5, margin: 20, marginBottom: 40}} 
