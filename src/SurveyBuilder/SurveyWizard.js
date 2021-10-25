@@ -7,6 +7,7 @@ import './SurveyWizard.css'
  const SurveyWizard = () => {
     const [isPrivate, setIsPrivate] = useState(false);
     const [isRandom, setIsRandom] = useState(false);
+    const [reqIdentifiers, setReqIdentifiers] = useState(false);
     const [numOfQuestions, setNumOfQuestions] = useState(10);
     const [surveyName, setSurveyName] = useState('');
     const [surveyCategory, setSurveyCategory] = useState('community feedback');
@@ -23,6 +24,7 @@ import './SurveyWizard.css'
             singleQuestion: surveyStyle,
             isPrivate: isPrivate,
             isRandom: isRandom,
+            requiresIdentifiers: reqIdentifiers,
             numQuestions: numOfQuestions >= 100 ? 10 : numOfQuestions
         }
         
@@ -76,6 +78,11 @@ import './SurveyWizard.css'
             <ul style={{listStyle: 'none', paddingInlineStart: 0}}>{questions}</ul>
         )
     }
+
+    console.log(typeof numOfQuestions + " " + typeof questionSaved);
+    const number = parseInt(numOfQuestions);
+    console.log(parseInt(numOfQuestions));
+    console.log(questionSaved);
 
     return (
     <div>
@@ -135,6 +142,20 @@ import './SurveyWizard.css'
                         </div>
                     </div>
                     <div>
+                        Does this survey require identifiers?
+                        <div>
+                            <label htmlFor='yes'>
+                                    Yes
+                                <input type='radio' value='true'  name='options3' onClick={() => setReqIdentifiers(true)}/>
+                            </label>
+                            <label htmlFor='no'>
+                                    No
+                                <input type='radio'
+                                value='false' name='options3' defaultChecked onClick={() => setReqIdentifiers(false)}/>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
                         Should questions be randomized?
                         <div>
                             <label htmlFor='yes'>
@@ -172,7 +193,7 @@ import './SurveyWizard.css'
                 <div hidden={questionsHidden}>
                     {questionBuilders(numOfQuestions)}
                 </div>
-                {questionSaved == numOfQuestions ? <div style={{padding: 20, display: questionsHidden ? "none" : ""}}><button onClick={() => {
+                {questionSaved === number ? <div style={{padding: 20, display: questionsHidden ? "none" : ""}}><button onClick={() => {
                     history.push({
                         pathname: "/review-survey/",
                         state: {

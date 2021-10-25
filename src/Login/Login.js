@@ -21,6 +21,7 @@ const Login = () => {
         });
     }
     const submitUserData = async () => {
+        console.log('running');
         const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}/auth` : `${process.env.REACT_APP_LOCAL}/auth`;
         console.log(url + " THIS IS URL")
         const options = {
@@ -38,14 +39,16 @@ const Login = () => {
         };
 
         const response = await fetch(url, options).then(res => {
+            console.log(res.status);
             if(res.status === 200) {
+                console.log(200);
                 res.json().then(data => {
                     console.log(JSON.stringify(data) + "THIS IS DATA")
                     setUserId(data.id);
                     reroute(data.id, data.token);
                 }).catch(error => console.log(error))
-            } else if (res.status === 400) {
-                res.json().then(data => setError(data))
+            } else {
+                setError(res.statusText)
             }
             }).catch(err => {
               console.log(err.message);

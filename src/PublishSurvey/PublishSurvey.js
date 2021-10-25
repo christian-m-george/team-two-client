@@ -7,6 +7,7 @@ const PublishSurvey = () => {
     const [emailField, setEmailField] = useState([0, 1]);
     const [emailFieldInputs, setEmailFieldInputs] = useState(["", ""]);
     const [error, setError] = useState(null);
+    const [sent, setSent] = useState(false);
     const history = useHistory();
 
     const surveyId = history.location.state?.surveyId;
@@ -33,7 +34,6 @@ const PublishSurvey = () => {
 
 
     const allEmailsValid = () => {
-        console.log('runn')
         let i = 0;
         let allValid = true
         while(allValid && i < emailFieldInputs.length) {
@@ -48,10 +48,13 @@ const PublishSurvey = () => {
     }
 
     const submitSurvey = () => {
+        console.log('runn')
         fetch(`${url}/survey/publish-survey`, options).then(
             res => {
+                console.log(res.status + ' is status')
                 if(res.status === 200) {
                     console.log('sent survey to recipients')
+                    setSent("Your survey was sent")
                 } else {
                     setError('could not send your survey, please try again later')
                 }
@@ -73,6 +76,7 @@ const PublishSurvey = () => {
                     }
                 })
             }}>you can still review/edit it</button>
+            {sent ? <div>Your survey was sent!</div> : null}
 
             <div style={{width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <form style={{width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
