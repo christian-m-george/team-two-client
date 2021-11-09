@@ -50,6 +50,7 @@ function App() {
             <Route path="/change-password/:token" component={ResetPassword}/>
             <Route exact path="/change-password" component={ChangePassword}/>
             <Route path="/qrcode" component={GenerateQR}/>
+            <Route path="/delete-account" component={deleteAccount}/>
         </div>
       </UserContext.Provider>
     </div>
