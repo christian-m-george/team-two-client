@@ -8,6 +8,7 @@ export default function AccountSettings() {
             <Navigation />
             This is AccountSettings component
             <Link to='change-password' >Change your password here</Link>
+            <Link to='delete-Account'>Delete Account here</Link>
         </div>
     )
 }
