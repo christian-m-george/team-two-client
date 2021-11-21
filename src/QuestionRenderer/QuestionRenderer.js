@@ -1,6 +1,7 @@
 import React from 'react';
 import MultipleChoiceRenderer from './MultipleChoiceRenderer';
 import CommentBoxRenderer from './CommentBoxRenderer';
+import SliderRenderer from "./SliderRenderer";
 
 const QuestionTypes = (props) => {
     const qType = props.question.questionType;
@@ -30,7 +31,18 @@ const QuestionTypes = (props) => {
             case 'file-upload':
             return (<div>file-upload</div>);
             case 'slider':
-            return (<div>slider</div>);
+            return (
+                <div>
+                    <SliderRenderer
+                        answerArray={props.answerArray}
+                        setUserAnswerArray={props.setUserAnswerArray}
+                        question={props.question}
+                        questionSaved={props.questionSaved}
+                        setQuestionSaved={props.setQuestionSaved}
+                        setSaved={props.setSaved}
+                        num={num}
+                    />
+                </div>);
             case 'single-textbox':
             return (<div>single-textbox</div>);
             case 'multiple-textbox':

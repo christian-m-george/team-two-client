@@ -1,6 +1,7 @@
 import React from 'react';
 import MultipleChoice from './MultipleChoice';
 import CommentBox from './CommentBox';
+import Slider from './Slider';
 
 const QuestionTypes = (props) => {
     console.log(JSON.stringify(props));
@@ -21,7 +22,7 @@ const QuestionTypes = (props) => {
             case 'file-upload':
             return (<div>file-upload</div>);
             case 'slider':
-            return (<div>slider</div>);
+            return (<div><Slider questionSaved={props.questionSaved} setQuestionSaved={props.setQuestionSaved} setSaved={props.setSaved} num={num} surveyId={surveyId}/></div>);
             case 'single-textbox':
             return (<div>single-textbox</div>);
             case 'multiple-textbox':
