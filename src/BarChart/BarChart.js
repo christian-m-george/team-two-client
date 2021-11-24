@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chart } from 'chart.js/auto'
-import { Bar } from 'react-chartjs-3';
+import { Bar } from 'react-chartjs-2';
 
 export const BarChart = (props) => {
     // console.log("THIS IS MY SHIT" + JSON.stringify(props));
