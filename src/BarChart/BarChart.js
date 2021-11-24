@@ -1,5 +1,5 @@
 import React from 'react';
-import Chart from 'chart.js/auto'
+import { Chart } from 'chart.js/auto'
 import { Bar } from 'react-chartjs-3';
 
 export const BarChart = (props) => {
