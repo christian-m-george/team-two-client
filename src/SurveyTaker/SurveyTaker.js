@@ -7,7 +7,9 @@ import QuestionRenderer from '../QuestionRenderer/QuestionRenderer'
 
 const SurveyTaker = () => {
   // const [userId, setUserId] = useState(null);
-  const [, setEmails] = useState([]);
+  const [emails, setEmails] = useState([]);
+  const [userEmail, setUserEmail] = useState(null);
+  const [emailValid, setEmailValid] = useState(false);
   const [survey, setSurvey] = useState(null);
   const [questions, setQuestions] = useState(null);
   const [checkedToken, setCheckedToken] = useState(false);
@@ -40,6 +42,7 @@ const SurveyTaker = () => {
             console.log(data);
             setEmails(data.emails);
             setSurvey(data.survey);
+            if (!data.survey.isPrivate) setEmailValid(true);
             const sortedQuestions = data.questions.sort((a, b) => (a.order > b.order ? 1 : -1))
             setQuestions(sortedQuestions)
             setCheckedToken(true);
@@ -69,6 +72,12 @@ const SurveyTaker = () => {
     cors: true
   };
 
+  const checkEmail = () => {
+    if (emails.includes(userEmail)) {
+      setEmailValid(true)
+    }
+  }
+
 
   const sendSurveyResponse = async () => {
     fetch(`${url}/response`, surveyResponseOptions).then(
@@ -94,6 +103,12 @@ const SurveyTaker = () => {
       <Navigation />
 
       {token && !checkedToken ? <div>checking token...</div> : null}
+
+      {!emailValid ? <div className='email-input-wrapper'>
+        <label htmlFor='email'>Enter your email address</label>
+        <input type='text' onChange={(e) => setUserEmail(e.target.value)} />
+        <button onClick={() => checkEmail()}>Submit</button>
+      </div> : null}
 
       {error ? <div>{error}</div> : null}
 
@@ -123,63 +138,69 @@ const SurveyTaker = () => {
         </div>
       </div> : null}
 
-      <form
-        style={{
-          width: "100%",
-          visibility: success ? 'hidden' : 'visible'
-        }}
-      >
-        <div
+      {emailValid ?
+        <form
           style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
+            width: "100%",
+            visibility: success ? 'hidden' : 'visible'
           }}
         >
-          <h1>
-            {survey ? `${survey.title}` : "...loading"}
-          </h1>
-        </div>
-        <ul style={{
-          margin: 'auto',
-          listStyle: 'none',
-          paddingInlineStart: 0,
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column'
-        }}>
-          {questions ? questions.map((question) => <QuestionRenderer
-            question={question}
-            answerArray={userAnswerArray}
-            setUserAnswerArray={setUserAnswerArray} />)
-            : null}
-        </ul>
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 'auto'
-          }}
-        >
-          <button
+          <div
             style={{
-              width: "25%",
-              padding: 5,
-              margin: 20,
-              marginBottom: 40
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}
-            onClick={() => {
-              sendSurveyResponse()
-            }}
-            type='button'
           >
-            Submit your survey
-          </button>
-        </div>
-      </form>
+
+
+
+            <h1>
+              {survey ? `${survey.title}` : "...loading"}
+            </h1>
+          </div>
+
+          <ul style={{
+            margin: 'auto',
+            listStyle: 'none',
+            paddingInlineStart: 0,
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            {questions ? questions.map((question) => <QuestionRenderer
+              question={question}
+              answerArray={userAnswerArray}
+              setUserAnswerArray={setUserAnswerArray} />)
+              : null}
+          </ul>
+
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              margin: 'auto'
+            }}
+          >
+            <button
+              style={{
+                width: "25%",
+                padding: 5,
+                margin: 20,
+                marginBottom: 40
+              }}
+              onClick={() => {
+                sendSurveyResponse()
+              }}
+              type='button'
+            >
+              Submit your survey
+            </button>
+          </div>
+        </form> : null}
     </div>
   )
 }

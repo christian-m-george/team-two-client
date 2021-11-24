@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation'
 import SurveyIcon from './SurveyIcon';
 
+// Component that fetches a users surveys based on an API get call with a cookie
 const MySurveys = () => {
   const url = process.env.NODE_ENV === 'production' ? `${process.env.REACT_APP_HEROKU}` : `${process.env.REACT_APP_LOCAL}`;
   const [surveys, setSurveys] = useState([]);
@@ -18,20 +19,25 @@ const MySurveys = () => {
     cors: true
   };
 
-
   useEffect(() => {
-    fetch(`${url}/survey/all`, getSurveyOptions)
-      .then(results => {
-        if (results.status === 200) {
-          results.json()
-            .then(data => {
-              const surveys = data;
-              setSurveys(surveys);
-            })
-        } else {
-          setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down")
-        }
-      })
+    // let isSubscribed = true;
+    const getSurvs = async () => {
+      await fetch(`${url}/survey/all`, getSurveyOptions)
+        .then(results => {
+          if (results.status === 200) {
+            results.json()
+              .then(data => {
+                const surveys = data;
+                setSurveys(surveys);
+              })
+          } else {
+            setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down")
+          }
+        }).catch(error => setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down"))
+    }
+
+    getSurvs();
+    // return () => (isSubscribed = false)
   }, [history]);
 
 
@@ -56,10 +62,10 @@ const MySurveys = () => {
           setSurveys(newSurveys)
 
         }
-      }).catch(error => console.log(error));
+      }).catch(error => setError(error));
   }
 
-  function nav(input) {
+  const nav = (input) => {
     history.push({
       pathname: "/edit-survey",
       state: {
@@ -82,7 +88,8 @@ const MySurveys = () => {
               <button style={{ margin: 2, padding: 5 }} onClick={() => history.push({
                 pathname: '/publish-survey',
                 state: {
-                  surveyId: item.id
+                  surveyId: item.id,
+                  survey: item
                 }
               })}>Publish</button>
               <button style={{ margin: 2, padding: 5 }} onClick={() => nav(item)}>Edit</button>

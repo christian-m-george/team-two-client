@@ -1,21 +1,25 @@
 .greeting {
-    text-align: center;
-    font-size: 100px;
+  text-align: center;
+  color: white;
+  font-size: 13vw;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  text-shadow: 5px 5px #8a978a;
 }
 
 .wrapper {
-    text-align: center;
-    padding: 10px;
+  text-align: center;
+  padding: 10px;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .input-wrapper {
-    display: flex;
-    justify-content: center;
-    padding: 5px 5px 5px 0px;
+  display: flex;
+  justify-content: center;
+  padding: 5px 5px 5px 0px;
 }
