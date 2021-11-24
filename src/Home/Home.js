@@ -58,7 +58,6 @@ export default function Home() {
         <div className='create-survey-wrapper wrapper'>
             <Link to='/my-surveys'>My Surveys</Link>
         </div>
-        <BarChart />
     </div>
 }
 
