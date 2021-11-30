@@ -47,7 +47,9 @@ const EditSurvey = () => {
         const builderArray = [];
         for (let i = 0; i < data; i++) {
             builderArray.push(i);
+            console.log(questions[i]);
         }
+        
         const questionEditor = builderArray.map((num) =>
             <li key={num}>
                 <SingleQuestionEditor question={questions[num]} />

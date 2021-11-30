@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from '../Navigation/Navigation';
 import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import ChangePassword from '../Utils/ChangePassword';
 
 // Account Settings Component
@@ -29,12 +28,15 @@ export default function AccountSettings() {
         const validate = async () => await fetch(`${url}/user/check-token`, validateTokenOptions)
             .then(res => {
                 if (res.status !== 200) {
-                    history.push('/login');
+                    history.push('/entrance');
                 }
-            })
+            }).catch(() => history.push(('/entrance')))
+
         validate();
         return () => (isSubscribed = false);
     }, []);
+
+
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

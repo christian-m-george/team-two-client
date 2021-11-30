@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import Navigation from '../Navigation/Navigation.js'
 import SingleQuestionBuilder from '../SingleQuestion/SingleQuestionBuilder.js';
-import './SurveyWizard.css'
 
 const SurveyWizard = () => {
     const [isPrivate, setIsPrivate] = useState(false);
@@ -52,7 +51,7 @@ const SurveyWizard = () => {
                         setQuestionsHidden(false);
                     }).catch(err => console.log(err))
                 } else if (res.status === 401) {
-                    history.push('/login')
+                    history.push('/entrance')
                 }
             }
             ).catch(

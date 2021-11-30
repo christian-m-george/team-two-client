@@ -20,7 +20,7 @@ const Logout = () => {
         .then(
             res => {
                 if (res.status === 200) {
-                    history.push('/login')
+                    history.push('/entrance')
                 }
                 else {
                     console.log(res.status())

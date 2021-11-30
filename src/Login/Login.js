@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import './Login.css';
 import { Link, useHistory } from "react-router-dom";
 import validate from "../Utils/Validate.js";
+import Logout from "../Logout/Logout";
+import Register from "../Register/Register";
 
 // This component is a form that allows submission of emails and passwords. It authorizes those
 // credentials by sending them to a node server that validates against a postgres DB
@@ -11,6 +13,7 @@ const Login = () => {
     const [, setUserId] = useState(null);
     const [error, setError] = useState(null);
     const history = useHistory();
+    const [onLogin, setOnLogin] = useState(true);
 
     // redirect to create-survey
     const reroute = (id, token) => {
@@ -61,61 +64,46 @@ const Login = () => {
         return response
     }
 
-    return <div>
-
-        <div className='header-wrapper wrapper'
-            style={{
-                backgroundColor: 'springgreen',
-                marginBottom: 50
-            }}>
-            <h1 className='greeting'>Questioneer</h1>
+    return <form className='test'
+        // style={{
+        //     backgroundColor: 'transparent',
+        //     width: '80%',
+        //     marginLeft: 'auto',
+        //     marginRight: 'auto',
+        //     borderRadius: 5,
+        //     color: "white"
+        // }}
+        onSubmit={(event) => {
+            event.preventDefault();
+            submitUserData();
+        }}
+    >
+        <div className='email-input-wrapper input-wrapper wrapper'>
+            <div className='label-wrapper wrapper'><label htmlFor='email'>email</label></div>
+            <input type='text' id="email" name="email" onChange={event => {
+                setEmail(event.target.value)
+                setError(null);
+            }}></input>
         </div>
 
-        <div className='login-form'>
-            <form
-                style={{
-                    paddingTop: 25,
-                    paddingBottom: 25,
-                    backgroundColor: 'springgreen',
-                    width: '80%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    borderRadius: 5
-                }}
-                onSubmit={(event) => {
-                    event.preventDefault();
-                    submitUserData();
-                }}
-            >
-                <div className='email-input-wrapper input-wrapper wrapper'>
-                    <div className='label-wrapper wrapper'><label htmlFor='email'>email</label></div>
-                    <input type='text' id="email" name="email" onChange={event => {
-                        setEmail(event.target.value)
-                        setError(null);
-                    }}></input>
-                </div>
-
-                <div className='password-input-wrapper input-wrapper wrapper'>
-                    <div className='label-wrapper wrapper'><label htmlFor='password'>password</label></div>
-                    <input type='password' id="password" name="password" onChange={event => {
-                        setPassword(event.target.value)
-                        setError(null);
-                    }}></input>
-                </div>
-
-                <div className='button-wrapper wrapper'>
-                    <button disabled={!validate.email(email) || !validate.password(password)} >Login</button>
-                </div>
-                {error ? <div className='wrapper'>{error}</div> : null}
-                <div className='register-link-wrapper wrapper'>
-                    <Link to='/register'>Register Here</Link>
-                    <button style={{ margin: 5 }} onClick={() => {
-                        history.push('/change-password');
-                    }}>Forgot password?</button>
-                </div>
-            </form>
+        <div className='password-input-wrapper input-wrapper wrapper'>
+            <div className='label-wrapper wrapper'><label htmlFor='password'>password</label></div>
+            <input type='password' id="password" name="password" onChange={event => {
+                setPassword(event.target.value)
+                setError(null);
+            }}></input>
         </div>
-    </div>
+
+        <div className='button-wrapper wrapper'>
+            <button disabled={!validate.email(email) || !validate.password(password)} >Login</button>
+        </div>
+        {error ? <div className='wrapper'>{error}</div> : null}
+        <div className='register-link-wrapper wrapper'>
+            <button style={{ margin: 5 }} onClick={() => {
+                history.push('/change-password');
+            }}>Forgot password?</button>
+        </div>
+    </form>
 };
 
 export default Login;

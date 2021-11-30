@@ -29,11 +29,11 @@ const MySurveys = () => {
               .then(data => {
                 const surveys = data;
                 setSurveys(surveys);
-              })
+              }).catch(() => setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down"))
           } else {
             setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down")
           }
-        }).catch(error => setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down"))
+        }).catch(() => setError("Failed to fetch your surveys, have you created any? If so, maybe try a page reload, or perhaps the server is down"))
     }
 
     getSurvs();

@@ -13,7 +13,10 @@ export default function Navigation() {
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
                 marginBottom: 15,
-                backgroundColor: 'green',
+
+                backgroundColor: "#9dc5c3",
+                backgroundImage: "linear-gradient(315deg, #9dc5c3 0%, #5e5c5c 74%)",
+
                 color: 'white'
             }}
         >
