@@ -10,12 +10,22 @@ const SliderRenderer = (props) => {
             </div>
 
             <div class="slidercontainer">
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange"/>
+                <input type="range" min="1" max="100" initialValue="50" class="slider" id="myRange"
+                onChange={(e) => {
+                    const marker = props.answerArray.map((a, idx) => {
+                        if (idx === props.question.order) {
+                            //console.log(e.target.value);
+                            return e.target.value;
+                        }else{
+                            return a
+                        }})
+                    props.setUserAnswerArray(marker)
+                }}/>
             </div>
             <div class="sliderlabels" style={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
-                <p width="33.33333%" text-align="left">{props.question.leftLabel}</p>
-                <p width="33.33333%" text-align="center">{props.question.centerLabel}</p>
-                <p width="33.33333%" text-align="right">{props.question.rightLabel}</p>
+                <p style={{padding: 10}}>{props.question.answers[0]}</p>
+                <p style={{padding: 10}}>{props.question.answers[1]}</p>
+                <p style={{padding: 10}}>{props.question.answers[2]}</p>
             </div>
         </li>
     )

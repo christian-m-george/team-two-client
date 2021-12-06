@@ -20,9 +20,10 @@ const Slider = (props) => {
                 num: props.num,
                 questionType: 'slider',
                 questionText: questionInput,
-                leftLabel: leftLabel,
-                centerLabel: centerLabel,
-                rightLabel: rightLabel
+                answers: [leftLabel, centerLabel, rightLabel]
+               // leftLabel: leftLabel,
+               // centerLabel: centerLabel,
+                //rightLabel: rightLabel
             }),
             credentials: 'include',
             cors:true
