@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, Link } from 'react-router-dom';
 import validate from "../Utils/Validate.js";
+import './Register.css';
 
 export default function Register() {
     const [email, setEmail] = useState("");
