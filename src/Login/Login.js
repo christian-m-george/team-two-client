@@ -64,7 +64,8 @@ const Login = () => {
         return response
     }
 
-    return <form className='test'
+    return <div class='slideL'>
+    <form className='test'
         // style={{
         //     backgroundColor: 'transparent',
         //     width: '80%',
@@ -104,6 +105,7 @@ const Login = () => {
             }}>Forgot password?</button>
         </div>
     </form>
+</div>
 };
 
 export default Login;
