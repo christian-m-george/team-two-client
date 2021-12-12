@@ -14,3 +14,33 @@
   justify-content: center;
   padding: 5px 5px 5px 0px;
 }
+
+@keyframes slideInFromLeft {
+  0% {
+    margin-left: -100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+.slideL {  
+  /* This section calls the slideInFromLeft animation we defined above */
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+
+}
+
+@keyframes slideInFromRight {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-right: 0%;
+  }
+}
+
+.slideR {  
+  /* This section calls the slideInFromRight animation we defined above */
+  animation: 1s ease-out 0s 1 slideInFromRight;
+}
+
