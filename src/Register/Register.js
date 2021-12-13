@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, Link } from 'react-router-dom';
 import validate from "../Utils/Validate.js";
+import './Register.css';
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -44,7 +45,7 @@ export default function Register() {
             }).catch(err => console.log(err));
     }
 
-    return <div>
+    return <div class='slideR'>
         <div className='register-form'>
             <form onSubmit={(event) => {
                 event.preventDefault();
