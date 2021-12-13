@@ -3,7 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import validate from "../Utils/Validate.js";
 import './Register.css';
 
-export default function Register() {
+export default function Register(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [fName, setFName] = useState("");
@@ -15,11 +15,6 @@ export default function Register() {
         lastName: lName,
         email: email,
         password: password
-    }
-
-    // redirect to create-survey
-    const reroute = () => {
-        history.push("/entrance");
     }
 
     const submitUserData = (userData) => {
@@ -40,7 +35,7 @@ export default function Register() {
         fetch(url, options)
             .then(response => {
                 if (response.status === 200) {
-                    reroute();
+                    props.changeScreen(true);
                 };
             }).catch(err => console.log(err));
     }

@@ -72,97 +72,106 @@ const PublishSurvey = () => {
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", flexDirection: 'column' }}>
             <Navigation />
             <button style={{ padding: 5, margin: 10 }} onClick={() => history.goBack()}>back to your surveys</button>
-            <div style={{ margin: 20, padding: 15 }}>hello, here you will publish your survey</div>
-            <button
-                style={{ marginBottom: 25 }}
-                onClick={() => {
-                    history.push({
-                        pathname: '/edit-survey',
-                        state: {
-                            survey: survey,
-                            surveyId: surveyId
-                        }
-                    })
-                }}>you can still review/edit it</button>
-            {sent ? <div>Your survey was sent!</div> : null}
+            <div style={{ margin: 20, padding: 15, border: "1px solid black", borderRadius: 3, boxShadow: "1px 1px 0 0 black", textAlign: "center", display: "flex", flexDirection: "column" }}>Publish your survey
+                <button
+                    style={{ width: "50%", margin: "5px auto 25px auto" }}
+                    onClick={() => {
+                        history.push({
+                            pathname: '/edit-survey',
+                            state: {
+                                survey: survey,
+                                surveyId: surveyId
+                            }
+                        })
+                    }}>you can still review/edit it</button>
+                {sent ? <div>Your survey was sent!</div> : null}
 
-            <div style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <form style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <div style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <form style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-                    <div style={{ textAlign: 'center' }}>
-                        <p style={{ fontSize: 12 }}>Please enter the emails to which you wish to send a link</p>
-                    </div>
+                        <div style={{ textAlign: 'center' }}>
+                            <p style={{ fontSize: 12 }}>Please enter the emails to which you wish to send a link</p>
+                        </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <button
+                                style={{ margin: 10 }}
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    const nxt = nextNum();
+                                    setEmailField([...emailField, nxt])
+                                    setEmailFieldInputs([...emailFieldInputs, ""])
+                                }}
+                            >add email field
+                            </button>
+
+                            <button
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    if (emailField.length > 1) {
+                                        setEmailField(emailField.slice(0, emailField.length - 1))
+                                        setEmailFieldInputs(emailFieldInputs.slice(0, emailFieldInputs.length - 1))
+                                    }
+                                }}>
+                                remove email field
+                            </button>
+
+                        </div >
+                        <ul style={{ width: "100%", listStyle: 'none', paddingInlineStart: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+
+                            {emailField.map((num) => <input key={num}
+                                style={{
+                                    width: "75%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center',
+                                    margin: 5, padding: 5
+                                }}
+                                type='text' maxLength={45}
+                                onChange={(event) => {
+                                    const markers = emailFieldInputs.map((a, idx) => {
+                                        if (idx !== num) {
+                                            return a;
+                                        } else {
+                                            a = event.target.value;
+                                            return a;
+                                        }
+                                    });
+                                    setEmailFieldInputs(markers);
+                                    setError(null);
+                                }}
+                            />
+                            )}
+                        </ul>
+                        {error ? <div style={{ textAlign: "center", fontSize: 12, color: "red" }}>{error}</div> : null}
                         <button
                             style={{ margin: 10 }}
+                            type='submit'
                             onClick={(event) => {
-                                event.preventDefault();
-                                const nxt = nextNum();
-                                setEmailField([...emailField, nxt])
-                                setEmailFieldInputs([...emailFieldInputs, ""])
-                            }}
-                        >add email field
-                        </button>
-
-                        <button
-                            onClick={(event) => {
-                                event.preventDefault();
-                                if (emailField.length > 1) {
-                                    setEmailField(emailField.slice(0, emailField.length - 1))
-                                    setEmailFieldInputs(emailFieldInputs.slice(0, emailFieldInputs.length - 1))
+                                event.preventDefault()
+                                if (allEmailsValid()) {
+                                    submitSurvey(true);
+                                } else {
+                                    setError("One or more of these emails is invalid")
                                 }
-                            }}>
-                            remove email field
+                            }}
+                        >Submit survey to recipients
                         </button>
 
-                    </div >
-                    <ul style={{ width: "100%", listStyle: 'none', paddingInlineStart: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-
-                        {emailField.map((num) => <input key={num}
-                            style={{
-                                width: "75%", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center',
-                                margin: 5, padding: 5
-                            }}
-                            type='text' maxLength={45}
-                            onChange={(event) => {
-                                const markers = emailFieldInputs.map((a, idx) => {
-                                    if (idx !== num) {
-                                        return a;
-                                    } else {
-                                        a = event.target.value;
-                                        return a;
-                                    }
-                                });
-                                setEmailFieldInputs(markers);
-                                setError(null);
-                            }}
-                        />
-                        )}
-                    </ul>
-                    {error ? <div style={{ textAlign: "center", fontSize: 12, color: "red" }}>{error}</div> : null}
-                    <button
-                        style={{ margin: 10 }}
-                        type='submit'
-                        onClick={(event) => {
-                            event.preventDefault()
-                            if (allEmailsValid()) {
-                                submitSurvey(true);
-                            } else {
-                                setError("One or more of these emails is invalid")
-                            }
+                    </form>
+                    <form
+                        style={{
+                            margin: 20,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            width: "75%"
                         }}
-                    >Submit survey to recipients
-                    </button>
-
-                </form>
-                <form
-                    style={{ margin: 20 }}
-                >
-                    Or you can receive a sharable link to your email
-                    <button onClick={(e) => { e.preventDefault(); submitSurvey(false) }}>Email me a link i can share!</button>
-                </form>
-
+                    >
+                        Or you can receive a sharable link to your email
+                        <button style={{
+                            marginLeft: 20
+                        }}
+                            onClick={(e) => { e.preventDefault(); submitSurvey(false) }}>Email me a link i can share!</button>
+                    </form>
+                </div>
             </div>
         </div>
     )

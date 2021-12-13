@@ -26,7 +26,7 @@ export const Entrance = () => {
                 disabled={!onLogin}>Register</button>
         </div>
         <div style={{ marginBottom: 50, width: '80%', height: 400, display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid white" }}>
-            {onLogin ? <Login /> : <Register />}
+            {onLogin ? <Login /> : <Register changeScreen={setOnLogin} />}
         </div>
     </div>
 }

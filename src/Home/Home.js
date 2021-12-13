@@ -90,6 +90,7 @@ const styles = {
         display: "flex",
         textAlign: "center",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        border: "1px solid black"
     }
 }

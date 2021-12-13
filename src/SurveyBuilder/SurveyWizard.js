@@ -91,43 +91,51 @@ const SurveyWizard = () => {
                     <form className='survey-wizard' onSubmit={(event) => {
                         event.preventDefault();
                         submitSurveyWizardData(event)
-                    }}>
-                        <label htmlFor='name-your-survey'>name your survey</label>
+                    }}
+                        style={{ padding: 10, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", border: "1px solid black", borderRadius: 3, boxShadow: "1px 1px 0 0 black" }}
+                    >
+                        <label style={{ padding: 10, fontWeight: "bold" }} htmlFor='name-your-survey'>Name your survey</label>
                         <input type='text' onChange={(event) => setSurveyName(event.target.value)} />
-                        <h5>survey category</h5>
-                        <select id='survey-category' onChange={(event) => setSurveyCategory(event.target.value)}>
-                            <option value='community feedback'>Community or volunteer feedback</option>
-                            <option value='customer feedback'>Customer feedback</option>
-                            <option value='concept testing'>Concept product or ad testing</option>
-                            <option value='brand tracking'>Brand tracking or awareness</option>
-                            <option value='market research'>General market research</option>
-                            <option value='employee engagement'>Employee engagement</option>
-                            <option value='employee performance'>Employee performance</option>
-                            <option value='general employee feedback'>General employee feedback</option>
-                            <option value='event registration'>Event registration</option>
-                            <option value='event feedback'>Event feedback</option>
-                            <option value='academic research'>Academic research</option>
-                            <option value='course evaluation'>Course evaluation</option>
-                            <option value='school feedback'>Student or parent feedback</option>
-                            <option value='application form'>Form of application</option>
-                            <option value='vote'>Vote</option>
-                            <option value='poll'>Poll</option>
-                            <option value='other'>Other</option>
-                        </select>
-                        <h5>survey style</h5>
-                        <select id='survey-style' onChange={() => {
-                            if (surveyStyle) {
-                                setSurveyStyle(false);
-                            } else {
-                                setSurveyStyle(true);
-                            }
-                            console.log(surveyStyle + " THIS IS SURVEY STYLE");
-                        }}>
-                            <option value='single questions'>one question at a time</option>
-                            <option value='all questions'>all questions are visible</option>
-                        </select>
-                        <div>
-                            Is this survey private?
+                        <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <h5 style={{ marginRight: 10 }}>Survey Category</h5>
+                            <select style={{ height: "30%" }} id='survey-category' onChange={(event) => setSurveyCategory(event.target.value)}>
+                                <option value='community feedback'>Community or volunteer feedback</option>
+                                <option value='customer feedback'>Customer feedback</option>
+                                <option value='concept testing'>Concept product or ad testing</option>
+                                <option value='brand tracking'>Brand tracking or awareness</option>
+                                <option value='market research'>General market research</option>
+                                <option value='employee engagement'>Employee engagement</option>
+                                <option value='employee performance'>Employee performance</option>
+                                <option value='general employee feedback'>General employee feedback</option>
+                                <option value='event registration'>Event registration</option>
+                                <option value='event feedback'>Event feedback</option>
+                                <option value='academic research'>Academic research</option>
+                                <option value='course evaluation'>Course evaluation</option>
+                                <option value='school feedback'>Student or parent feedback</option>
+                                <option value='application form'>Form of application</option>
+                                <option value='vote'>Vote</option>
+                                <option value='poll'>Poll</option>
+                                <option value='other'>Other</option>
+                            </select>
+                        </div>
+                        <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <h5 style={{ marginRight: 10 }}>survey style</h5>
+                            <select id='survey-style' onChange={() => {
+                                if (surveyStyle) {
+                                    setSurveyStyle(false);
+                                } else {
+                                    setSurveyStyle(true);
+                                }
+                                console.log(surveyStyle + " THIS IS SURVEY STYLE");
+                            }}>
+                                <option value='single questions'>one question at a time</option>
+                                <option value='all questions'>all questions are visible</option>
+                            </select>
+                        </div>
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginRight: 10 }}>
+                            <h5 style={{ marginRight: 10 }}>
+                                Is this survey private?
+                            </h5>
                             <div>
                                 <label htmlFor='yes'>
                                     Yes
@@ -140,8 +148,10 @@ const SurveyWizard = () => {
                                 </label>
                             </div>
                         </div>
-                        <div>
-                            Does this survey require identifiers?
+                        <div style={styles.radioWrap}>
+                            <h5 style={{ marginRight: 10 }}>
+                                Does this survey require identifiers?
+                            </h5>
                             <div>
                                 <label htmlFor='yes'>
                                     Yes
@@ -154,8 +164,10 @@ const SurveyWizard = () => {
                                 </label>
                             </div>
                         </div>
-                        <div>
-                            Should questions be randomized?
+                        <div style={styles.radioWrap}>
+                            <h5 style={{ marginRight: 10 }}>
+                                Should questions be randomized?
+                            </h5>
                             <div>
                                 <label htmlFor='yes'>
                                     Yes
@@ -168,12 +180,16 @@ const SurveyWizard = () => {
                                 </label>
                             </div>
                         </div>
-                        <div className='question-number-wrapper'>How many questions will there be? Up to 99
-                            <div>
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className='question-number-wrapper'>
+                            <h5 style={{ marginRight: 10 }}>
+                                How many questions will there be? Up to 20
+                            </h5>
+                            <div >
                                 <input
                                     type='number'
                                     name='number-of-questions'
                                     defaultValue={numOfQuestions}
+                                    max={20}
                                     onChange={(event) => {
                                         setNumOfQuestions(event.target.value)
                                     }}
@@ -181,44 +197,37 @@ const SurveyWizard = () => {
                             </div>
                         </div>
                         <div>
-                            <button className="btn btn-default" type="submit">
+                            <button style={{ marginTop: 10 }} className="btn btn-default" type="submit">
                                 Submit
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div hidden={questionsHidden}>{surveyName}: {questionSaved}/{numOfQuestions} Questions saved</div>
+            <div style={{ marginLeft: "auto", marginRight: "auto", width: "50%", textAlign: "center" }} hidden={questionsHidden}>{surveyName}: {questionSaved}/{numOfQuestions} Questions saved</div>
             <div hidden={questionsHidden}>
                 {questionBuilders(numOfQuestions)}
             </div>
-            {questionSaved === number ? <div style={{ padding: 20, display: questionsHidden ? "none" : "" }}>
-                {/* <button onClick={() => {
-                    history.push({
-                        pathname: "/edit-survey/",
-                        state: {
-                            surveyId: surveyId,
-                            isPrivate: isPrivate,
-                            isRandom: isRandom,
-                            numOfQuestions: numOfQuestions,
-                            surveyName: numOfQuestions,
-                            surveyCategory: surveyCategory,
-                            surveyStyle: surveyStyle
-                        }
-                    })
-                }}>Review your survey</button> */}
-
-                <button onClick={() => {
-                    history.push({
-                        pathname: "/publish-survey/",
-                        state: {
-                            surveyId: surveyId
-                        }
-                    })
-                }}>Publish your survey</button>
-            </div> : <p style={{ display: questionsHidden ? "none" : "" }}>Please fill out all questions</p>}
+            {questionSaved === number ? <div style={{ padding: 20, display: questionsHidden ? "none" : "flex", alignItems: "center", justifyContent: "center" }}>
+                <button style={{
+                    marginLeft: "auto",
+                    marginRight: "auto"
+                }}
+                    onClick={() => {
+                        history.push({
+                            pathname: "/publish-survey/",
+                            state: {
+                                surveyId: surveyId
+                            }
+                        })
+                    }}>Publish your survey</button>
+            </div> : <div style={{ padding: 20, textAlign: "center", display: questionsHidden ? "none" : "", marginLeft: "auto", marginRight: "auto", }}>Please fill out all questions</div>}
         </div>
     )
+}
+
+const styles = {
+    radioWrap: { display: "flex", justifyContent: "center", alignItems: "center", marginRight: 10 }
 }
 
 export default SurveyWizard;

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const Slider = (props) => {
     const [questionInput, setQuestionInput] = useState('');
@@ -21,12 +21,12 @@ const Slider = (props) => {
                 questionType: 'slider',
                 questionText: questionInput,
                 answers: [leftLabel, centerLabel, rightLabel]
-               // leftLabel: leftLabel,
-               // centerLabel: centerLabel,
+                // leftLabel: leftLabel,
+                // centerLabel: centerLabel,
                 //rightLabel: rightLabel
             }),
             credentials: 'include',
-            cors:true
+            cors: true
         };
 
         return await fetch(url, options)
@@ -44,23 +44,36 @@ const Slider = (props) => {
             });
     }
 
-    return(
-        <div className='slider container' style={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
-            <div>
-                <label htmlFor='enter-your-question' style={{height: 100, width: 400}}>enter your question</label>
-                <input style={{height: 30, margin: 10, width: 400}} type='text' onChange={(event) => setQuestionInput(event.target.value)}/>
-                <label htmlFor='enter-left-label' style={{height: 100, width: 400}}>enter left label</label>
-                <input style={{height: 30, margin: 10, width: 400}} type='text' onChange={(event) => setLeftLabel(event.target.value)}/>
-                <label htmlFor='enter-center-label' style={{height: 100, width: 400}}>enter center label</label>
-                <input style={{height: 30, margin: 10, width: 400}} type='text' onChange={(event) => setCenterLabel(event.target.value)}/>
-                <label htmlFor='enter-right-label' style={{height: 100, width: 400}}>enter right label</label>
-                <input style={{height: 30, margin: 10, width: 400}} type='text' onChange={(event) => setRightLabel(event.target.value)}/>
-            </div>
-            <form onSubmit={ (event) => {
+    return (
+        <div className='slider container' style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+            <form onSubmit={(event) => {
                 event.preventDefault();
                 sendQuestion();
             }}>
-                <button style={{justifyContent: "center", padding: 10, height: 40, width: 120}}>save question</button>
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                    <div>
+
+                        <label htmlFor='enter-your-question' style={{ height: 100, width: 400 }}>enter your question</label>
+                        <input style={{ height: 30, margin: 10, width: 400 }} type='text' onChange={(event) => setQuestionInput(event.target.value)} />
+                    </div>
+                    <div>
+
+                        <label htmlFor='enter-left-label' style={{ height: 100, width: 400 }}>enter left label</label>
+                        <input style={{ height: 30, margin: 10, width: 400 }} type='text' onChange={(event) => setLeftLabel(event.target.value)} />
+                    </div>
+                    <div>
+
+                        <label htmlFor='enter-center-label' style={{ height: 100, width: 400 }}>enter center label</label>
+                        <input style={{ height: 30, margin: 10, width: 400 }} type='text' onChange={(event) => setCenterLabel(event.target.value)} />
+                    </div>
+                    <div>
+
+                        <label htmlFor='enter-right-label' style={{ height: 100, width: 400 }}>enter right label</label>
+                        <input style={{ height: 30, margin: 10, width: 400 }} type='text' onChange={(event) => setRightLabel(event.target.value)} />
+                    </div>
+                </div>
+
+                <button style={{ justifyContent: "center", padding: 10, height: 40, width: 120 }}>save question</button>
             </form>
         </div>
     )
